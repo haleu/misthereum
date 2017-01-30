@@ -6,25 +6,24 @@ contract MyDevices
     Device[] public DeviceList;
     address public Owner;
     uint ID = 0;
+    Transaction[] public Transactions;
 
     function MyDevices() public
     {
         Owner = msg.sender;
-        
     }
 
     
-    function GetNameByIndex(uint i) constant returns(bytes32 Name, bool Success)
+    function GetNameByIndex(uint i) constant returns(string Name, bool Success)
     {
         if(i < DeviceList.length)
         {
             Success = true;
-            Name = DeviceList[i].GetName();
+            Name = Bytes32ToString(DeviceList[i].GetName());
         }else
         {
             Success = false;
         }
-        
     }
     
     function GetPolicyReadWrite(address Person, uint DeviceIndex) returns (bool Read,bool Write, bool Success)
@@ -71,8 +70,24 @@ contract MyDevices
         DeviceList.push(new Device(Name, ID));
         ID++;
     }
+
+    function AddTransaction(bytes32 Name, uint ID, address Signature)
+    {
+        Transactions.push(new Transaction(Name, ID, Signature));
+    }
+
+    function GetTransaction(uint x) returns (bytes32 name, uint id, address sig, bool Success)
+    {
+        if(x < Transactions.length)
+        {
+            (name, id, sig) = Transactions[x].GetTransaction();
+        }else
+        {
+            Success = false;
+        }
+    }
     
-    function Bytes32ToString(bytes32 x) constant returns (string) {
+    function Bytes32ToString(bytes32 x) private constant returns (string) {
         bytes memory bytesString = new bytes(32);
         uint charCount = 0;
             for (uint j = 0; j < 32; j++) {
@@ -88,7 +103,28 @@ contract MyDevices
             }
         return string(bytesStringTrimmed);
     }
-    
+}
+
+contract Transaction
+{
+    bytes32 DeviceName;
+    uint DeviceID;
+    address Signature;
+
+    function Transaction(bytes32 name, uint id, address sig) public
+    {
+        DeviceName = name;
+        DeviceID = id;
+        Signature = sig;
+    }
+
+    function GetTransaction() returns (bytes32 name, uint id, address sig)
+    {
+        name = DeviceName;
+        id = DeviceID;
+        Signature = sig;
+    }
+
 }
 
 contract Device
@@ -115,7 +151,6 @@ contract Device
                 p = Policies[i];
             }
         }
-
     }
     
     function AddPolicy(address Person)
@@ -178,5 +213,4 @@ contract Policy
     {
         return Write;
     }
-
 }
