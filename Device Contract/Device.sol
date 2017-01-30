@@ -14,12 +14,13 @@ contract MyDevices
     }
 
     
-    function GetNameByIndex(uint i) constant returns(string Name, bool Success)
+    function GetNameByIndex(uint i) constant returns(string Name, uint ID, bool Success)
     {
         if(i < DeviceList.length)
         {
             Success = true;
             Name = Bytes32ToString(DeviceList[i].GetName());
+            ID = DeviceList[i].GetID();
         }else
         {
             Success = false;
@@ -46,13 +47,15 @@ contract MyDevices
         }
     }
     
-    function SetPolicyReadWrite(address Person, uint DeviceIndex, bool Read, bool Write) returns (bool Success)
+    event setpolicyreadwrite(bool Success);
+
+    function SetPolicyReadWrite(address Person, uint DeviceIndex, bool Read, bool Write)
     {
         Policy p;
         bool b;
         
         (p,b) = DeviceList[DeviceIndex].GetPolicy(msg.sender);
-        Success = b;
+        setpolicyreadwrite(b);
         if(b == true)
         {
             p.SetRead(Read);
