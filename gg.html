@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="scripts.js"></script>
+</head>
+	<body>
+		<div class="content">
+      			<div id="message" style="display:none">
+				This Browser does not support Ethereum apps.
+      			</div>
+      		<div id="message2" style="display:none">
+				supports
+      			</div>
+			<div id=devicelist>
+			devicelist goes here
+			</div>
+      			<div class="Policy-check">
+					<input id="deviceIndex" type="text" placeholder="device index" >
+					<input id="addressPerson" tyep="text" placeholder="requester address" >
+      				<a href="" id="checkPolicy-btn">Check policy</a>
+			</div>
+			<div class="addDevice">
+				<input id="deviceName" type="text" placeholder="Device name" >
+				<a href="" id="addDevice-btn">Add Device</a>
+			</div>
+			<div id="status">
+			</div>
+			<div id="mining-status">
+			</div>
+
+    		</div>
+
+		<script type="text/javascript">
+		function autorun(){ init(); }
+
+		if (document.addEventListener) document.addEventListener("DOMContentLoaded", autorun, false);
+		else if (document.attachEvent) document.attachEvent("onreadystatechange", autorun);
+		else window.onload = autorun;
+	
+		</script>
+	</body>
+</html>
