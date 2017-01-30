@@ -89,6 +89,11 @@ contract MyDevices
         }
     }
     
+    function GetTransactionLength() returns (uint i)
+    {
+        i = Transactions.length;
+    }
+    
     function Bytes32ToString(bytes32 x) private constant returns (string) {
         bytes memory bytesString = new bytes(32);
         uint charCount = 0;
