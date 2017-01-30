@@ -26,7 +26,7 @@ contract MyDevices
         }
     }
     
-    function GetPolicyReadWrite(address Person, uint DeviceIndex) returns (bool Read,bool Write, bool Success)
+    function GetPolicyReadWrite(address Person, uint DeviceIndex) constant returns (bool Read,bool Write, bool Success)
     {
         Read = false;
         Write = false;
@@ -76,7 +76,7 @@ contract MyDevices
         Transactions.push(new Transaction(Name, ID, Signature));
     }
 
-    function GetTransaction(uint x) returns (string name, uint id, address sig, bool Success)
+    function GetTransaction(uint x) constant returns (string name, uint id, address sig, bool Success)
     {
         bytes32 n;
         if(x < Transactions.length)
@@ -88,8 +88,8 @@ contract MyDevices
             Success = false;
         }
     }
-    
-    function GetTransactionLength() returns (uint i)
+
+    function GetTransactionLength() constant returns (uint i)
     {
         i = Transactions.length;
     }
@@ -170,7 +170,7 @@ contract Device
         Name = name;
     }
     
-    function GetName() returns (bytes32)
+    function GetName() constant returns (bytes32)
     {
         return Name;
     }
@@ -212,11 +212,11 @@ contract Policy
         Write = b;
     }
 
-    function CanRead () returns (bool)
+    function CanRead () constant returns (bool)
     {
         return Read;
     }
-    function CanWrite () returns (bool)
+    function CanWrite () constant returns (bool)
     {
         return Write;
     }
