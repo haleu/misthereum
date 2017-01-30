@@ -125,7 +125,7 @@ contract Transaction
         Signature = sig;
     }
 
-    function GetTransaction() returns (bytes32 name, uint id, address sig)
+    function GetTransaction()constant returns (bytes32 name, uint id, address sig)
     {
         name = DeviceName;
         id = DeviceID;
@@ -180,7 +180,7 @@ contract Device
         ID = id;
     }
     
-    function GetID() returns (uint)
+    function GetID() constant returns (uint)
     {
         return ID;
     }

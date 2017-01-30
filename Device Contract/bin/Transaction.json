@@ -1,5 +1,5 @@
 {
-    "abi": "[{\"constant\":false,\"inputs\":[],\"name\":\"GetTransaction\",\"outputs\":[{\"name\":\"name\",\"type\":\"bytes32\"},{\"name\":\"id\",\"type\":\"uint256\"},{\"name\":\"sig\",\"type\":\"address\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"name\",\"type\":\"bytes32\"},{\"name\":\"id\",\"type\":\"uint256\"},{\"name\":\"sig\",\"type\":\"address\"}],\"type\":\"constructor\"}]\n",
+    "abi": "[{\"constant\":true,\"inputs\":[],\"name\":\"GetTransaction\",\"outputs\":[{\"name\":\"name\",\"type\":\"bytes32\"},{\"name\":\"id\",\"type\":\"uint256\"},{\"name\":\"sig\",\"type\":\"address\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"name\",\"type\":\"bytes32\"},{\"name\":\"id\",\"type\":\"uint256\"},{\"name\":\"sig\",\"type\":\"address\"}],\"type\":\"constructor\"}]\n",
     "bytecode": "606060405260405160608060d383395060c06040525160805160a05160008390556001829055600280546c0100000000000000000000000080840204600160a060020a0319909116179055505050607a8060596000396000f3606060405260e060020a6000350463855e1ef88114601c575b6002565b34600257600080546001546002805473ffffffffffffffffffffffffffffffffffffffff19169055909160408051938452602084019290925273ffffffffffffffffffffffffffffffffffffffff1682820152519081900360600190f3",
     "functionHashes": {
         "GetTransaction()": "855e1ef8"
