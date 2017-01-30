@@ -76,11 +76,13 @@ contract MyDevices
         Transactions.push(new Transaction(Name, ID, Signature));
     }
 
-    function GetTransaction(uint x) returns (bytes32 name, uint id, address sig, bool Success)
+    function GetTransaction(uint x) returns (string name, uint id, address sig, bool Success)
     {
+        bytes32 n;
         if(x < Transactions.length)
         {
-            (name, id, sig) = Transactions[x].GetTransaction();
+            (n, id, sig) = Transactions[x].GetTransaction();
+            name = Bytes32ToString(n);
         }else
         {
             Success = false;
