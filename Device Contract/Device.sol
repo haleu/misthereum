@@ -95,8 +95,8 @@ contract MyDevices is mortal
     function RemovePolicy(uint DeviceIndex, address Person)
     {
         if(Owner != msg.sender) throw;
-        DeviceList[DeviceIndex].RemovePolicy(Person);
-        removepolicy(true);
+        bool b = DeviceList[DeviceIndex].RemovePolicy(Person);
+        removepolicy(b);
     }
 
     event adddevice(bool Success);
@@ -203,9 +203,18 @@ contract Device
         Policies.push(new Policy(Person));
     }
 
-    function RemovePolicy(address Person)
+    function RemovePolicy(address Person) returns (bool b)
     {
-        
+        b = false;
+        for(uint i = 0; i < Policies.length; i++)
+        {
+            if(Person == Policies[i].GetPerson())
+            {
+                Policies[i] = Policies[Policies.length-1];
+                Policies.length--;
+                b = true;
+            }
+        }
     }
     
     function SetName(bytes32 name)
