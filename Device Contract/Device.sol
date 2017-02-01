@@ -1,16 +1,25 @@
 pragma solidity ^0.4.0;
 
-contract MyDevices
+contract mortal {
+    /* Define variable owner of the type address*/
+    address public Owner;
+
+    /* this function is executed at initialization and sets the owner of the contract */
+    function mortal() { Owner = msg.sender; }
+
+    /* Function to recover the funds on the contract */
+    function kill() { if (msg.sender == Owner) selfdestruct(Owner); }
+}
+
+contract MyDevices is mortal
 {
 
     Device[] public DeviceList;
-    address public Owner;
     uint ID = 0;
     Transaction[] public Transactions;
 
     function MyDevices() public
     {
-        Owner = msg.sender;
     }
     
     function GetNameByIndex(uint i) constant returns(string Name, uint ID, bool Success)
@@ -32,7 +41,7 @@ contract MyDevices
         Write = false;
         Success = false;
         
-        Person = msg.sender;
+        if(Owner == msg.sender) throw;
         
         Device d = DeviceList[DeviceIndex];
         Policy p;
@@ -52,9 +61,11 @@ contract MyDevices
     {
         Policy p;
         bool b;
+
+        if(Owner == msg.sender) throw;
         
         (p,b) = DeviceList[DeviceIndex].GetPolicy(msg.sender);
-        
+
         if(b == true)
         {
             p.SetRead(Read);
@@ -68,14 +79,26 @@ contract MyDevices
 
     function AddPolicy(uint DeviceIndex, address Person)
     {
+        if(Owner == msg.sender) throw;
         DeviceList[DeviceIndex].AddPolicy(Person);
         addpolicy(true);
     }
     
+    event removepolicy(bool Success);
+
+    // Doesn't work at the moment.
+    function RemovePolicy(uint DeviceIndex, address Person)
+    {
+        if(Owner == msg.sender) throw;
+        DeviceList[DeviceIndex].RemovePolicy(Person);
+        removepolicy(true);
+    }
+
     event adddevice(bool Success);
 
     function AddDevice(bytes32 Name)
     {
+        if(Owner == msg.sender) throw;
         DeviceList.push(new Device(Name, ID));
         ID++;
         adddevice(true);
@@ -84,7 +107,6 @@ contract MyDevices
     function AddTransaction(bytes32 Name, uint ID, address Signature)
     {
         Transactions.push(new Transaction(Name, ID, Signature));
-
     }
 
     function GetTransaction(uint x) constant returns (string name, uint id, address sig, bool Success)
@@ -174,6 +196,11 @@ contract Device
     function AddPolicy(address Person)
     {
         Policies.push(new Policy(Person));
+    }
+
+    function RemovePolicy(address Person)
+    {
+        
     }
     
     function SetName(bytes32 name)
