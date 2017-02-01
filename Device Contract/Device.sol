@@ -34,6 +34,11 @@ contract MyDevices is mortal
             Success = false;
         }
     }
+
+    function GetDeviceListLength() constant returns(uint l)
+    {
+        l = DeviceList.length;
+    }
     
     function GetPolicyReadWrite(address Person, uint DeviceIndex) constant returns (bool Read,bool Write, bool Success)
     {
