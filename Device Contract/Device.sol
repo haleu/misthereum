@@ -7,7 +7,7 @@ contract MyDevices
     address public Owner;
     uint ID = 0;
     Transaction[] public Transactions;
-    
+
     function MyDevices() public
     {
         Owner = msg.sender;
@@ -55,12 +55,14 @@ contract MyDevices
         bool b;
         
         (p,b) = DeviceList[DeviceIndex].GetPolicy(msg.sender);
-        setpolicyreadwrite(b);
+        
         if(b == true)
         {
             p.SetRead(Read);
             p.SetWrite(Write);
         }
+        
+        setpolicyreadwrite(b);
     }
     
     function AddPolicy(uint DeviceIndex, address Person)
