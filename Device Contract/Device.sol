@@ -7,8 +7,7 @@ contract MyDevices
     address public Owner;
     uint ID = 0;
     Transaction[] public Transactions;
-
-
+    
     function MyDevices() public
     {
         Owner = msg.sender;
