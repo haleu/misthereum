@@ -12,7 +12,6 @@ contract MyDevices
     {
         Owner = msg.sender;
     }
-
     
     function GetNameByIndex(uint i) constant returns(string Name, uint ID, bool Success)
     {
@@ -61,24 +60,31 @@ contract MyDevices
             p.SetRead(Read);
             p.SetWrite(Write);
         }
-        
+
         setpolicyreadwrite(b);
     }
     
+    event addpolicy(bool Succes);
+
     function AddPolicy(uint DeviceIndex, address Person)
     {
         DeviceList[DeviceIndex].AddPolicy(Person);
+        addpolicy(true);
     }
     
+    event adddevice(bool Success);
+
     function AddDevice(bytes32 Name)
     {
         DeviceList.push(new Device(Name, ID));
         ID++;
+        adddevice(true);
     }
 
     function AddTransaction(bytes32 Name, uint ID, address Signature)
     {
         Transactions.push(new Transaction(Name, ID, Signature));
+
     }
 
     function GetTransaction(uint x) constant returns (string name, uint id, address sig, bool Success)
