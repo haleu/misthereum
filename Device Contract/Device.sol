@@ -46,7 +46,7 @@ contract MyDevices is mortal
         Write = false;
         Success = false;
         
-        if(Owner == msg.sender) throw;
+        if(Owner != msg.sender) throw;
         
         Device d = DeviceList[DeviceIndex];
         Policy p;
@@ -67,7 +67,7 @@ contract MyDevices is mortal
         Policy p;
         bool b;
 
-        if(Owner == msg.sender) throw;
+        if(Owner != msg.sender) throw;
         
         (p,b) = DeviceList[DeviceIndex].GetPolicy(msg.sender);
 
@@ -84,7 +84,7 @@ contract MyDevices is mortal
 
     function AddPolicy(uint DeviceIndex, address Person)
     {
-        if(Owner == msg.sender) throw;
+        if(Owner != msg.sender) throw;
         DeviceList[DeviceIndex].AddPolicy(Person);
         addpolicy(true);
     }
@@ -94,7 +94,7 @@ contract MyDevices is mortal
     // Doesn't work at the moment.
     function RemovePolicy(uint DeviceIndex, address Person)
     {
-        if(Owner == msg.sender) throw;
+        if(Owner != msg.sender) throw;
         DeviceList[DeviceIndex].RemovePolicy(Person);
         removepolicy(true);
     }
@@ -103,7 +103,7 @@ contract MyDevices is mortal
 
     function AddDevice(bytes32 Name)
     {
-        if(Owner == msg.sender) throw;
+        if(Owner != msg.sender) throw;
         DeviceList.push(new Device(Name, ID));
         ID++;
         adddevice(true);
