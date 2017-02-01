@@ -8,7 +8,7 @@ contract MyDevices
     uint ID = 0;
     Transaction[] public Transactions;
 
-    // TEEST 2
+    // TEEST 3
 
     function MyDevices() public
     {
