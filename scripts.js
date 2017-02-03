@@ -15,14 +15,17 @@ function init(){
 			message.style.display = "block";
 			return;
 		}
-		web3.eth.getCode(contractAddress);
 		// Load the contract
+		web3.eth.getCode(contractAddress);
 		devicesContract = web3.eth.contract(contractABI);
 		myDevices = devicesContract.at(contractAddress);
+
+		//UI init
 		document.getElementById("status").innerHTML = "contract loaded";
 		document.getElementById("checkPolicy-btn").addEventListener("click", checkPolicy);
 		document.getElementById("setPolicy-btn").addEventListener("click", setPolicy);
 		document.getElementById("addDevice-btn").addEventListener("click", addDevice);
+		document.getElementById("removePolicy-btn").addEventListener("click", removePolicy);
 		document.getElementById("devicelist").innerHTML = outputDeviceList();
 		document.getElementById("account").innerHTML = web3.eth.accounts[0];
 	}
@@ -77,25 +80,37 @@ function init(){
 		}
 		myDevices.SetPolicyReadWrite(address, index, read, write, {from: web3.eth.accounts[0]});
 		document.getElementById("mining-status").innerHTML = "waiting for new block...";
+		var setPolEvent = myDevices.setpolicyreadwrite({_from: web3.eth.accounts[0]});
+		setPolEvent.watch(function(err, result) {
+			if (err) {
+				console.log(err)
+				return;
+			}
+			console.log(result.args.Success)
+			if (result.args.Success){
+				document.getElementById("mining-status").innerHTML = "mining complete";
+				document.getElementById("status").innerHTML = "policy updated";
+				setPolEvent.stopWatching() 
+			}
+		})
+	}
+
+	function removePolicy(){
+	
 	}
 
 	function getDeviceList(){
 		var deviceList = [];
-		var success = true;
-		var i = 0;
-		while (success){
+		var length = myDevices.GetDeviceListLength();
+		for (var i=0; i<length; i++){
 			var result = myDevices.GetNameByIndex(i);
 			if (result[2]){
 				var name = result[0];
 				var id = result[1]
 				deviceList.push({id: id, name: name});
-				i++;
-			}
-			else{
-				success = false;
-				return deviceList;
 			}
 		}
+		return deviceList;
 		
 	}
 
@@ -106,7 +121,7 @@ function init(){
 		if (length > 0){
 			deviceList = getDeviceList();
 			for (var i=0; i<deviceList.length; i++){
-			output += "<br>"+deviceList[i].id+" - "+deviceList[i].name;
+				output += "<br>"+deviceList[i].id+" - "+deviceList[i].name;
 			}
 		}
 		return output;
