@@ -82,16 +82,17 @@ contract MyDevices is mortal
     
     event addpolicy(bool Succes);
 
-    function AddPolicy(uint DeviceIndex, address Person)
+    function AddPolicy(uint DeviceIndex, address Person, bool Read, bool Write)
     {
         if(Owner != msg.sender) throw;
         DeviceList[DeviceIndex].AddPolicy(Person);
         addpolicy(true);
+        SetPolicyReadWrite(Person, DeviceIndex, Read, Write);
     }
     
     event removepolicy(bool Success);
 
-    // Doesn't work at the moment.
+    // Might work.
     function RemovePolicy(uint DeviceIndex, address Person)
     {
         if(Owner != msg.sender) throw;
