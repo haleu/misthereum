@@ -80,7 +80,7 @@ contract MyDevices is mortal
         setpolicyreadwrite(b);
     }
     
-    event addpolicy(bool Succes);
+    event addpolicy(bool Success);
 
     function AddPolicy(uint DeviceIndex, address Person, bool Read, bool Write)
     {
