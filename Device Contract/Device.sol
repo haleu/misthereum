@@ -69,7 +69,7 @@ contract MyDevices is mortal
 
         if(Owner != msg.sender) throw;
         
-        (p,b) = DeviceList[DeviceIndex].GetPolicy(msg.sender);
+        (p,b) = DeviceList[DeviceIndex].GetPolicy(Person);
 
         if(b == true)
         {
@@ -187,8 +187,7 @@ contract Device
     
     function GetPolicy(address Person) returns(Policy p, bool Success)
     {
-        Success = true;
-        p = Policies[0];
+        Success = false;
         for(uint i = 0; i < Policies.length; i++)
         {
             if(Person == Policies[i].GetPerson())
