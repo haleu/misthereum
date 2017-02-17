@@ -15,6 +15,8 @@ function init(){
 			message.style.display = "block";
 			return;
 		}
+		// set up socket to our server
+		var connection = new WebSocket('ws://130.240.154.211:27015');
 		// Load the contract
 		web3.eth.getCode(contractAddress);
 		devicesContract = web3.eth.contract(contractABI);
@@ -22,7 +24,7 @@ function init(){
 
 		//UI init
 		document.getElementById("status").innerHTML = "contract loaded";
-		document.getElementById("checkPolicy-btn").addEventListener("click", checkPolicy);
+		document.getElementById("checkPolicy-btn").addEventListener("click", outputPolicyCheck);
 		document.getElementById("setPolicy-btn").addEventListener("click", setPolicy);
 		document.getElementById("addDevice-btn").addEventListener("click", addDevice);
 		document.getElementById("removePolicy-btn").addEventListener("click", removePolicy);
@@ -47,24 +49,6 @@ function init(){
 				addDevEvent.stopWatching() 
 			}
 		})
-	}
-
-	function checkPolicy(){
-		var ReadAccess;
-		var WriteAccess;
-		var Success;
-		var index = document.getElementById("deviceIndex").value;
-		var address = document.getElementById("addressPerson").value;
-		var result = myDevices.GetPolicyReadWrite(address, index);
-		Success = result[2];
-		ReadAccess = result[0];
-		WriteAccess = result[1];
-		if (Success){
-			document.getElementById("status").innerHTML = "read: "+ReadAccess+"<br>write: "+WriteAccess;
-		}
-		else{
-			document.getElementById("status").innerHTML = "no access";
-		}
 	}
 
 	function setPolicy(){
@@ -106,7 +90,37 @@ function init(){
 	}
 
 	function removePolicy(){
+		var index = document.getElementById("deviceIndex-PolRem").value;
+		var address = document.getElementById("addressPerson-PolRem").value;
+		var policyCheck = myDevices.GetPolicyReadWrite(address, index);
+		var policyExists = policyCheck[2];
+		var removeEvent;
+		if (policyExists){
+			myDevices.RemovePolicy(index, address, {from: web3.eth.accounts[0]});
+			removeEvent = myDevices.removepolicy({_from: web3.eth.accounts[0]});
+			document.getElementById("status").innerHTML = "policy set to be deleted";
+		}
+		else{
+			document.getElementById("status").innerHTML = "policy not found";
+			return;
+		}
+		document.getElementById("mining-status").innerHTML = "waiting for new block...";
+		removeEvent.watch(function(err, result) {
+			if (err) {
+				console.log(err)
+				return;
+			}
+			console.log(result.args.Success)
+			if (result.args.Success){
+				document.getElementById("mining-status").innerHTML = "mining complete";
+				document.getElementById("status").innerHTML = "policy removed";
+				removeEvent.stopWatching() 
+			}
+		})
+	}
 	
+	function checkPolicy(index, address){
+		return myDevices.GetPolicyReadWrite(address, index);
 	}
 
 	function getDeviceList(){
@@ -135,4 +149,20 @@ function init(){
 			}
 		}
 		return output;
+	}
+	function outputPolicyCheck(){
+		var index = document.getElementById("deviceIndex").value;
+		var address = document.getElementById("addressPerson").value;
+		var result = checkPolicy(index, address);
+		/*
+		Success = result[2];
+		ReadAccess = result[0];
+		WriteAccess = result[1];
+		*/
+		if (result[2]){
+			document.getElementById("status").innerHTML = "read: "+result[0]+"<br>write: "+result[1];
+		}
+		else{
+			document.getElementById("status").innerHTML = "no access";
+		}
 	}
