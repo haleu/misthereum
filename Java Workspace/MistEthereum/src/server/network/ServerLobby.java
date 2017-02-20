@@ -1,4 +1,4 @@
-package server;
+package server.network;
 
 public class ServerLobby {
 
