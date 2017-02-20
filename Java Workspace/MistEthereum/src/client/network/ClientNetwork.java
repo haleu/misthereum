@@ -62,30 +62,30 @@ public class ClientNetwork extends Observable implements Runnable{
 	public void run() {
 		while(true){
 			while (Connected) { // keep running
-			    	if(Out == null){
-			    		try{
-					    	Out = new ObjectOutputStream(ClientSocket.getOutputStream());
-					    	System.out.println("Output stream in client created");
-					    	System.out.println(ClientSocket + " has connected");
-					    }catch(IOException e){
-					    	System.out.println("Could not get output stream from " + ClientSocket.toString());
-					    }
-			    	}		
-		        	if(In == null){
-		        		try{
-		        	    	In = new ObjectInputStream(ClientSocket.getInputStream());
-		        	    	System.out.println("input stream for client created");
-		        	    }catch(IOException e){
-		        	    	System.out.println("Could not get input stream from " + ClientSocket.toString());
-		        	    }
-		        	}
-		        	if(In != null){
-//		        		try {
-//		        			
-//								setChanged();
-//								notifyObservers();
-//		        			}
-//		        			catch (IOException | ClassNotFoundException e) {
+		    	if(Out == null){
+		    		try{
+				    	Out = new ObjectOutputStream(ClientSocket.getOutputStream());
+				    	System.out.println("Output stream in client created");
+				    	System.out.println(ClientSocket + " has connected");
+				    }catch(IOException e){
+				    	System.out.println("Could not get output stream from " + ClientSocket.toString());
+				    }
+		    	}		
+	        	if(In == null){
+	        		try{
+	        	    	In = new ObjectInputStream(ClientSocket.getInputStream());
+	        	    	System.out.println("input stream for client created");
+	        	    }catch(IOException e){
+	        	    	System.out.println("Could not get input stream from " + ClientSocket.toString());
+	        	    }
+	        	}
+	        	if(In != null){
+//	        		try {
+//	        			
+//							setChanged();
+//							notifyObservers();
+//	        			}
+//	        		catch (IOException | ClassNotFoundException e) {
 //							System.out.println("couldn't read from server");				
 //							try {
 //								Thread.sleep(16);
@@ -93,9 +93,8 @@ public class ClientNetwork extends Observable implements Runnable{
 //								e1.printStackTrace();
 //								
 //							}
-//						}
-		        	}
-
+//					}
+	        	}
 		    }
 		    try {
 				Thread.sleep(16);
