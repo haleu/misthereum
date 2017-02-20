@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class EventHandler {
 	
-	protected ArrayList<Event> Events = new ArrayList<Event>();
+	protected ArrayList<String[]> Events = new ArrayList<String[]>();
 
-	public void AddEvent(Event e)
-	{
-		Events.add(e);
-	}
 }
