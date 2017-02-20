@@ -1,5 +1,5 @@
 package client.events;
 
-public class UserEventHandler {
+public class UserEventHandler extends EventHandler{
 
 }

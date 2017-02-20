@@ -1,5 +1,5 @@
 package client.events;
 
-public class DeviceEventHandler {
+public class DeviceEventHandler extends EventHandler{
 
 }
