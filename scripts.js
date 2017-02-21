@@ -28,7 +28,8 @@ function init(){
 		document.getElementById("setPolicy-btn").addEventListener("click", setPolicy);
 		document.getElementById("addDevice-btn").addEventListener("click", addDevice);
 		document.getElementById("removePolicy-btn").addEventListener("click", removePolicy);
-		document.getElementById("devicelist").innerHTML = outputDeviceList();
+		//document.getElementById("devicelist").innerHTML = outputDeviceList();
+		outputDeviceList();
 		document.getElementById("account").innerHTML = web3.eth.accounts[0];
 	}
 
@@ -51,7 +52,8 @@ function init(){
 					document.getElementById("status").innerHTML = "failed";
 				}
 				document.getElementById("mining-status").innerHTML = "mining complete";
-				document.getElementById("devicelist").innerHTML = outputDeviceList();
+				//document.getElementById("devicelist").innerHTML = outputDeviceList();
+				outputDeviceList();
 				addDevEvent.stopWatching();
 			}
 		})
@@ -154,7 +156,7 @@ function init(){
 		
 	}
 
-	function outputDeviceList(){
+	/*function outputDeviceList(){
 		var deviceList = [];
 		var length = myDevices.GetDeviceListLength();
 		var output = "";
@@ -165,6 +167,27 @@ function init(){
 			}
 		}
 		return output;
+	}*/
+	function outputDeviceList(){
+		var deviceList = [];
+		var length = myDevices.GetDeviceListLength();
+		var output = "";
+		if (length > 0){
+			deviceList = getDeviceList();
+			for (var i=0; i<deviceList.length; i++){
+				//create div for each device
+				var newDevice = document.createElement("div");
+				newDevice.id = "device"+i;
+				newDevice.className = "device";
+				newDevice.setAttribute('data-name', deviceList[i].name);
+				newDevice.setAttribute('data-id', deviceList[i].id);
+				newDevice.innerHTML = "Device: "+deviceList[i].name+"<br>Id: "+deviceList[i].id;
+				document.getElementById("devicelist").appendChild(newDevice);
+
+				//create div for each policy(no function to fetch policy without address yet)
+				
+			}
+		}
 	}
 	function outputPolicyCheck(){
 		var index = document.getElementById("deviceIndex").value;
