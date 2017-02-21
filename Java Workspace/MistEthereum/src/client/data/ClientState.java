@@ -23,4 +23,15 @@ public class ClientState extends Observable{
 		this.Network = Network;
 	}
 	
+	public ClientNetwork GetNetwork()
+	{
+		if(Network != null)
+		{
+			return Network;
+		}else
+		{
+			return null;
+		}
+	}
+	
 }

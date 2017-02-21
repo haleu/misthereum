@@ -1,8 +1,7 @@
 package events;
 
-import java.util.ArrayList;
-
-public class EventHandler {
+public abstract class EventHandler {
 	
+	public abstract void ReadMessage(String[] Message);
 
 }
