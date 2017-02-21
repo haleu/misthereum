@@ -3,6 +3,8 @@ package client.gui;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,8 +29,8 @@ public class ClientGUI implements Observer{
 	private final JButton DisconnectButton = new JButton("Disconnect");
 	private final JButton CommandButton = new JButton("Send");
 	private JLabel MessageLabel = new JLabel("Welcome");
-	private JTextField IPText = new JTextField("127.0.0.1");
-	private JTextField PortText = new JTextField("Port");
+	private JTextField IPText = new JTextField("130.240.94.56");
+	private JTextField PortText = new JTextField("1234");
 	private JTextField CommandText = new JTextField("Input Command");
 	private JList<String> Devices = new JList<String>();
 	private JLabel IPLabel = new JLabel("IP");
@@ -51,6 +53,16 @@ public class ClientGUI implements Observer{
 		});
 		CommandButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					ObjectOutputStream outtest = new ObjectOutputStream(Network.GetSocket().getOutputStream());
+					String[] s = new String[1];
+					s[0] = "Hello wooorld";
+					outtest.writeObject(s);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		

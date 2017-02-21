@@ -24,8 +24,9 @@ public class ServerLobby implements Runnable{
 	        	if(HostSocket != null){
 	        		try{
 	        			System.out.println("Waiting for client ...");
-		        		socket = HostSocket.accept();    		     	      		
+		        		socket = HostSocket.accept();    		     	
 		        		ServerState.GetState().AddUser(new UserClient(socket));
+		        		
 		        	}catch(IOException e){
 		        		System.out.println("A client couldn't connect");
 		        	}
