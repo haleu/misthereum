@@ -60,7 +60,7 @@ contract MyDevices is mortal
         }
     }
     
-    event setpolicyreadwrite(bool Success);
+    event setpolicyreadwrite(bool Success, address _from);
 
     function SetPolicyReadWrite(address Person, uint DeviceIndex, bool Read, bool Write)
     {
@@ -77,37 +77,37 @@ contract MyDevices is mortal
             p.SetWrite(Write);
         }
 
-        setpolicyreadwrite(b);
+        setpolicyreadwrite(b, msg.sender);
     }
     
-    event addpolicy(bool Success);
+    event addpolicy(bool Success, address _from);
 
     function AddPolicy(uint DeviceIndex, address Person, bool Read, bool Write)
     {
         if(Owner != msg.sender) throw;
         DeviceList[DeviceIndex].AddPolicy(Person);
-        addpolicy(true);
+        addpolicy(true, msg.sender);
         SetPolicyReadWrite(Person, DeviceIndex, Read, Write);
     }
     
-    event removepolicy(bool Success);
+    event removepolicy(bool Success, address _from);
 
     // Might work.
     function RemovePolicy(uint DeviceIndex, address Person)
     {
         if(Owner != msg.sender) throw;
         bool b = DeviceList[DeviceIndex].RemovePolicy(Person);
-        removepolicy(b);
+        removepolicy(b, msg.sender);
     }
 
-    event adddevice(bool Success);
+    event adddevice(bool Success, address _from);
 
     function AddDevice(bytes32 Name)
     {
         if(Owner != msg.sender) throw;
         DeviceList.push(new Device(Name, ID));
         ID++;
-        adddevice(true);
+        adddevice(true, msg.sender);
     }
 
     function AddTransaction(bytes32 Name, uint ID, address Signature)
