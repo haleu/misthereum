@@ -80,20 +80,13 @@ public class ClientNetwork extends Observable implements Runnable{
 	        	    }
 	        	}
 	        	if(In != null){
-//	        		try {
-//	        			
-//							setChanged();
-//							notifyObservers();
-//	        			}
-//	        		catch (IOException | ClassNotFoundException e) {
-//							System.out.println("couldn't read from server");				
-//							try {
-//								Thread.sleep(16);
-//							} catch (InterruptedException e1) {
-//								e1.printStackTrace();
-//								
-//							}
-//					}
+	        		try {
+						String[] s = (String[])In.readObject();
+						setChanged();
+						notifyObservers();
+											
+					} catch (IOException | ClassNotFoundException e) {
+					}
 	        	}
 		    }
 		    try {
