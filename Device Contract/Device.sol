@@ -22,16 +22,32 @@ contract MyDevices is mortal
     {
     }
     
-    function GetNameByIndex(uint i) constant returns(string Name, uint ID, bool Success)
+    function GetDeviceByIndex(uint i) constant returns(string Name, uint ID, address owner, bool Success)
     {
         if(i < DeviceList.length)
         {
             Success = true;
             Name = Bytes32ToString(DeviceList[i].GetName());
             ID = DeviceList[i].GetID();
+            owner = DeviceList[i].GetOwner();
         }else
         {
             Success = false;
+        }
+    }
+    function GetPolicyByIndex(uint i, uint DeviceIndex) constant returns (address person, bool Read, bool Write, bool Success, uint l)
+    {
+        Success = false;
+        if (DeviceIndex < DeviceList.length)
+        {
+            Policy p;
+            (p, Success, l) = DeviceList[DeviceIndex].GetPolicyByIndex(i);
+            if (Success)
+            {
+                person = p.GetPerson();
+                Read = p.CanRead();
+                Write = p.CanWrite();  
+            }
         }
     }
 
@@ -39,14 +55,17 @@ contract MyDevices is mortal
     {
         l = DeviceList.length;
     }
-    
+/*    function GetPoliciesListLength(uint DeviceIndex) constant returns (uint l)
+    {
+        l = DeviceList[DeviceIndex].GetPoliciesLength();
+    }
+*/
     function GetPolicyReadWrite(address Person, uint DeviceIndex) constant returns (bool Read,bool Write, bool Success)
     {
         Read = false;
         Write = false;
         Success = false;
         
-        if(Owner != msg.sender) throw;
         
         Device d = DeviceList[DeviceIndex];
         Policy p;
@@ -65,16 +84,16 @@ contract MyDevices is mortal
     function SetPolicyReadWrite(address Person, uint DeviceIndex, bool Read, bool Write)
     {
         Policy p;
-        bool b;
-
-        if(Owner != msg.sender) throw;
-        
-        (p,b) = DeviceList[DeviceIndex].GetPolicy(Person);
-
-        if(b == true)
+        bool b = false;
+        if (DeviceList[DeviceIndex].GetOwner() == msg.sender)
         {
-            p.SetRead(Read);
-            p.SetWrite(Write);
+            (p,b) = DeviceList[DeviceIndex].GetPolicy(Person);
+
+            if(b == true)
+            {
+                p.SetRead(Read);
+                p.SetWrite(Write);
+            }
         }
 
         setpolicyreadwrite(b, msg.sender);
@@ -84,10 +103,9 @@ contract MyDevices is mortal
 
     function AddPolicy(uint DeviceIndex, address Person, bool Read, bool Write)
     {
-        if(Owner != msg.sender) throw;
-        DeviceList[DeviceIndex].AddPolicy(Person);
-        addpolicy(true, msg.sender);
-        SetPolicyReadWrite(Person, DeviceIndex, Read, Write);
+        bool Success = DeviceList[DeviceIndex].AddPolicy(Person, msg.sender);
+        addpolicy(Success, msg.sender);
+        if (Success){SetPolicyReadWrite(Person, DeviceIndex, Read, Write);}
     }
     
     event removepolicy(bool Success, address _from);
@@ -95,8 +113,7 @@ contract MyDevices is mortal
     // Might work.
     function RemovePolicy(uint DeviceIndex, address Person)
     {
-        if(Owner != msg.sender) throw;
-        bool b = DeviceList[DeviceIndex].RemovePolicy(Person);
+        bool b = DeviceList[DeviceIndex].RemovePolicy(Person, msg.sender);
         removepolicy(b, msg.sender);
     }
 
@@ -104,8 +121,7 @@ contract MyDevices is mortal
 
     function AddDevice(bytes32 Name)
     {
-        if(Owner != msg.sender) throw;
-        DeviceList.push(new Device(Name, ID));
+        DeviceList.push(new Device(Name, ID, msg.sender));
         ID++;
         adddevice(true, msg.sender);
     }
@@ -177,12 +193,14 @@ contract Device
 {
     bytes32 Name;
     uint ID;
+    address owner;
     Policy[] Policies;
 
-    function Device(bytes32 n, uint i) public
+    function Device(bytes32 n, uint i, address o) public
     {
         Name = n;
         ID = i;
+        owner = o;
     } 
     
     function GetPolicy(address Person) returns(Policy p, bool Success)
@@ -197,15 +215,28 @@ contract Device
             }
         }
     }
-    
-    function AddPolicy(address Person)
-    {
-        Policies.push(new Policy(Person));
+    function GetPolicyByIndex(uint index) returns (Policy p, bool Success, uint l){
+        Success = false;
+        l = Policies.length;
+        if (index < Policies.length)
+        {
+            Success = true;
+            p = Policies[index];
+        }
     }
-
-    function RemovePolicy(address Person) returns (bool b)
+    
+    function AddPolicy(address Person, address sender) returns (bool b)
     {
         b = false;
+        if(owner != sender) throw;
+        Policies.push(new Policy(Person));
+        b = true;
+    }
+
+    function RemovePolicy(address Person, address sender) returns (bool b)
+    {
+        b = false;
+        if(owner != sender) throw;
         for(uint i = 0; i < Policies.length; i++)
         {
             if(Person == Policies[i].GetPerson())
@@ -235,6 +266,14 @@ contract Device
     function GetID() constant returns (uint)
     {
         return ID;
+    }
+    function GetOwner() constant returns (address)
+    {
+        return owner;
+    }
+    function GetPoliciesLength() constant returns (uint)
+    {
+        return Policies.length;
     }
 }
 
