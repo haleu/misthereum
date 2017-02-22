@@ -16,6 +16,7 @@ public class ServerMain {
 		ServerNetwork sn = new ServerNetwork();
 		ServerState.GetState().SetNetwork(sn);
 		
+		
 		Scanner in = new Scanner(System.in);
 		
 		sn.SetPortNumber(in.nextInt());

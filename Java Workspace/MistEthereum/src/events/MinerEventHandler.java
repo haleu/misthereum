@@ -17,39 +17,39 @@ public class MinerEventHandler extends EventHandler implements WebSocketListener
 		
 	}
 
-		@Override
-		public void onWebSocketClose(int arg0, String arg1) {
-			// TODO Auto-generated method stub
-			System.out.println("Close: statusCode=" + arg0 + ", reason=" + arg1);
-		}
+	@Override
+	public void onWebSocketClose(int arg0, String arg1) {
+		// TODO Auto-generated method stub
+		System.out.println("Close: statusCode=" + arg0 + ", reason=" + arg1);
+	}
 
-		@Override
-		public void onWebSocketConnect(Session arg0) {
-			// TODO Auto-generated method stub
-			System.out.println("Connect: " + arg0.getRemoteAddress().getAddress());
-	        try {
-	            arg0.getRemote().sendString("Hello Webbrowser");
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-		}
+	@Override
+	public void onWebSocketConnect(Session arg0) {
+		// TODO Auto-generated method stub
+		System.out.println("Connect: " + arg0.getRemoteAddress().getAddress());
+        try {
+            arg0.getRemote().sendString("Hello Webbrowser");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 
-		@Override
-		public void onWebSocketError(Throwable arg0) {
-			// TODO Auto-generated method stub
-			System.out.println("Error: " + arg0.getMessage());
-		}
+	@Override
+	public void onWebSocketError(Throwable arg0) {
+		// TODO Auto-generated method stub
+		System.out.println("Error: " + arg0.getMessage());
+	}
 
-		@Override
-		public void onWebSocketBinary(byte[] arg0, int arg1, int arg2) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public void onWebSocketBinary(byte[] arg0, int arg1, int arg2) {
+		// TODO Auto-generated method stub
+		
+	}
 
-		@Override
-		public void onWebSocketText(String arg0) {
-			// TODO Auto-generated method stub
-			System.out.println("Message: " + arg0);
-		}
+	@Override
+	public void onWebSocketText(String arg0) {
+		// TODO Auto-generated method stub
+		System.out.println("Message: " + arg0);
+	}
 
 }
