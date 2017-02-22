@@ -43,8 +43,7 @@ public class UserClient extends Thread{
 				}
 			} 
 			while(Connected)
-			{		
-				
+			{			
 				try {
 					String[] s = (String[])Input.readObject();
 					System.out.println(s[0]);
@@ -56,7 +55,6 @@ public class UserClient extends Thread{
 						e1.printStackTrace();
 					}			
 				}
-				
 			}
 			try {
 				Thread.sleep(16);

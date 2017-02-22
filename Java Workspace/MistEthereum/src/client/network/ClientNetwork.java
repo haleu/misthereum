@@ -28,6 +28,19 @@ public class ClientNetwork extends Observable implements Runnable{
 		}
 	}
 	
+	public ObjectOutputStream GetOutput()
+	{
+		if(Out == null && IsConnected())
+		{
+			try {
+				Out = new ObjectOutputStream(ClientSocket.getOutputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return Out;
+	}
+	
 	public void Disconnect(){
 		try{
 			Out.reset();

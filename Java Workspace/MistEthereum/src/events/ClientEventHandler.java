@@ -17,7 +17,7 @@ public class ClientEventHandler extends EventHandler{
 		String[] s = new String[1];
 		s[0] = Message;
 		try {
-			ObjectOutputStream output = new ObjectOutputStream(ClientState.GetState().GetNetwork().GetSocket().getOutputStream());
+			ObjectOutputStream output = ClientState.GetState().GetNetwork().GetOutput();
 			output.writeObject(s);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
