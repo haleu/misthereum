@@ -1,18 +1,18 @@
-package server.user;
+package server.client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class UserClient extends Thread{
+public class Client extends Thread{
 	
 	private Socket ClientSocket;
 	private ObjectOutputStream Output;
 	private ObjectInputStream Input;
 	private boolean Connected = false;
 	
-	public UserClient(Socket s)
+	public Client(Socket s)
 	{
 		ClientSocket = s;
 
