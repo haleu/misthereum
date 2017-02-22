@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import client.data.ClientState;
 import client.network.ClientNetwork;
+import events.ClientEventHandler;
 
 public class ClientGUI implements Observer{
 
@@ -53,16 +54,9 @@ public class ClientGUI implements Observer{
 		});
 		CommandButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ObjectOutputStream outtest = new ObjectOutputStream(Network.GetSocket().getOutputStream());
-					String[] s = new String[1];
-					s[0] = "Hello wooorld";
-					outtest.writeObject(s);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
+					String s;
+					s = CommandText.getText();
+					((ClientEventHandler)State.GetEventHandler()).ButtonMessage(s);;
 			}
 		});
 		
