@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import events.EventHandler;
 
 public class Client extends Thread{
 	
@@ -11,6 +12,7 @@ public class Client extends Thread{
 	private ObjectOutputStream Output;
 	private ObjectInputStream Input;
 	private boolean Connected = false;
+	private EventHandler EventHandler;
 	
 	public Client(Socket s)
 	{
@@ -24,6 +26,21 @@ public class Client extends Thread{
 		
 		Connected = true;
 		start();
+	}
+	
+	public void SetEventHandler(EventHandler e)
+	{
+		EventHandler = e;
+	}
+	
+	public EventHandler GetEventHandler()
+	{
+		return EventHandler;
+	}
+	
+	public ObjectOutputStream GetOutput()
+	{
+		return Output;
 	}
 	
 	public void run()
