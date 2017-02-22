@@ -27,6 +27,9 @@ public class ServerMain {
 		Thread lobby = new Thread(sl);
 		
 		lobby.start();
+		
+		MinerNetwork mn = new MinerNetwork();
+		
 	}
 	
 }

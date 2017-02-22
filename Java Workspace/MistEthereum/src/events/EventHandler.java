@@ -2,6 +2,6 @@ package events;
 
 public abstract class EventHandler {
 	
-	public abstract void ReadMessage(String[] Message);
+	public abstract void NetworkMessage(String[] Message);
 
 }
