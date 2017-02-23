@@ -1,6 +1,6 @@
 var myDevices, devicesContract;
-var contractAddress = '0x451f0955E08Fc76328e68Baf09d39870D44dceb2';
-var contractABI	= [ { "constant": true, "inputs": [ { "name": "Person", "type": "address" }, { "name": "DeviceIndex", "type": "uint256" } ], "name": "GetPolicyReadWrite", "outputs": [ { "name": "Read", "type": "bool", "value": false }, { "name": "Write", "type": "bool", "value": false }, { "name": "Success", "type": "bool", "value": false } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "Person", "type": "address" }, { "name": "DeviceIndex", "type": "uint256" }, { "name": "Read", "type": "bool" }, { "name": "Write", "type": "bool" } ], "name": "SetPolicyReadWrite", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "Name", "type": "bytes32" }, { "name": "ID", "type": "uint256" }, { "name": "Signature", "type": "address" } ], "name": "AddTransaction", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "x", "type": "uint256" } ], "name": "GetTransaction", "outputs": [ { "name": "name", "type": "string", "value": "" }, { "name": "id", "type": "uint256", "value": "0" }, { "name": "sig", "type": "address", "value": "0x0000000000000000000000000000000000000000" }, { "name": "Success", "type": "bool", "value": false } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "GetTransactionLength", "outputs": [ { "name": "i", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "uint256" } ], "name": "Transactions", "outputs": [ { "name": "", "type": "address", "value": "0x" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "GetDeviceListLength", "outputs": [ { "name": "l", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "kill", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "DeviceIndex", "type": "uint256" }, { "name": "Person", "type": "address" }, { "name": "Read", "type": "bool" }, { "name": "Write", "type": "bool" } ], "name": "AddPolicy", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "uint256" } ], "name": "DeviceList", "outputs": [ { "name": "", "type": "address", "value": "0x" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "Name", "type": "bytes32" } ], "name": "AddDevice", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "i", "type": "uint256" } ], "name": "GetNameByIndex", "outputs": [ { "name": "Name", "type": "string", "value": "" }, { "name": "ID", "type": "uint256", "value": "0" }, { "name": "Success", "type": "bool", "value": false } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "Owner", "outputs": [ { "name": "", "type": "address", "value": "0xa45d59b32510907d0ba3d7ced0a40274e7a9bfaa" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "DeviceIndex", "type": "uint256" }, { "name": "Person", "type": "address" } ], "name": "RemovePolicy", "outputs": [], "payable": false, "type": "function" }, { "inputs": [], "payable": false, "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "setpolicyreadwrite", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "addpolicy", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "removepolicy", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "adddevice", "type": "event" } ];
+var contractAddress = '0xBCfaF41fEebB74Adf0ece53eEb96da36e98940ee';
+var contractABI	= [ { "constant": true, "inputs": [ { "name": "Person", "type": "address" }, { "name": "DeviceIndex", "type": "uint256" } ], "name": "GetPolicyReadWrite", "outputs": [ { "name": "Read", "type": "bool", "value": false }, { "name": "Write", "type": "bool", "value": false }, { "name": "Success", "type": "bool", "value": false } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "Person", "type": "address" }, { "name": "DeviceIndex", "type": "uint256" }, { "name": "Read", "type": "bool" }, { "name": "Write", "type": "bool" } ], "name": "SetPolicyReadWrite", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "Name", "type": "bytes32" }, { "name": "ID", "type": "uint256" }, { "name": "Signature", "type": "address" } ], "name": "AddTransaction", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "x", "type": "uint256" } ], "name": "GetTransaction", "outputs": [ { "name": "name", "type": "string", "value": "" }, { "name": "id", "type": "uint256", "value": "0" }, { "name": "sig", "type": "address", "value": "0x0000000000000000000000000000000000000000" }, { "name": "Success", "type": "bool", "value": false } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "GetTransactionLength", "outputs": [ { "name": "i", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "uint256" } ], "name": "Transactions", "outputs": [ { "name": "", "type": "address", "value": "0x" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "i", "type": "uint256" } ], "name": "GetDeviceByIndex", "outputs": [ { "name": "Name", "type": "string", "value": "" }, { "name": "ID", "type": "uint256", "value": "0" }, { "name": "owner", "type": "address", "value": "0x0000000000000000000000000000000000000000" }, { "name": "Success", "type": "bool", "value": false } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "GetDeviceListLength", "outputs": [ { "name": "l", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "kill", "outputs": [], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "DeviceIndex", "type": "uint256" }, { "name": "Person", "type": "address" }, { "name": "Read", "type": "bool" }, { "name": "Write", "type": "bool" } ], "name": "AddPolicy", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "uint256" } ], "name": "DeviceList", "outputs": [ { "name": "", "type": "address", "value": "0x" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "i", "type": "uint256" }, { "name": "DeviceIndex", "type": "uint256" } ], "name": "GetPolicyByIndex", "outputs": [ { "name": "person", "type": "address", "value": "0x0000000000000000000000000000000000000000" }, { "name": "Read", "type": "bool", "value": false }, { "name": "Write", "type": "bool", "value": false }, { "name": "Success", "type": "bool", "value": false }, { "name": "l", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "Name", "type": "bytes32" } ], "name": "AddDevice", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "Owner", "outputs": [ { "name": "", "type": "address", "value": "0xa45d59b32510907d0ba3d7ced0a40274e7a9bfaa" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "DeviceIndex", "type": "uint256" }, { "name": "Person", "type": "address" } ], "name": "RemovePolicy", "outputs": [], "payable": false, "type": "function" }, { "inputs": [], "payable": false, "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "setpolicyreadwrite", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "addpolicy", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "removepolicy", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "Success", "type": "bool" }, { "indexed": false, "name": "_from", "type": "address" } ], "name": "adddevice", "type": "event" } ];
 
 
 function init(){
@@ -25,9 +25,25 @@ function init(){
 		//UI init
 		document.getElementById("status").innerHTML = "contract loaded";
 		document.getElementById("checkPolicy-btn").addEventListener("click", outputPolicyCheck);
-		document.getElementById("setPolicy-btn").addEventListener("click", setPolicy);
+		document.getElementById("setPolicy-btn").addEventListener("click", function() {
+			var address = document.getElementById("addressPerson-set").value;
+			var index = document.getElementById("deviceIndex-set").value;
+			var read = false;
+			var write = false;
+			if (document.getElementById("read-checkbox").checked){
+				read = true;
+			}
+			if (document.getElementById("write-checkbox").checked){
+				write = true;
+			}
+			setPolicy(address, index, read, write);
+		});
 		document.getElementById("addDevice-btn").addEventListener("click", addDevice);
-		document.getElementById("removePolicy-btn").addEventListener("click", removePolicy);
+		document.getElementById("removePolicy-btn").addEventListener("click", function() {
+			var index = document.getElementById("deviceIndex-PolRem").value;
+			var address = document.getElementById("addressPerson-PolRem").value;
+			removePolicy(address, index);
+		});
 		//document.getElementById("devicelist").innerHTML = outputDeviceList();
 		outputDeviceList();
 		document.getElementById("account").innerHTML = web3.eth.accounts[0];
@@ -59,18 +75,7 @@ function init(){
 		})
 	}
 
-	function setPolicy(){
-		var address = document.getElementById("addressPerson-set").value;
-		var index = document.getElementById("deviceIndex-set").value;
-		var read = false;
-		var write = false;
-		if (document.getElementById("read-checkbox").checked){
-			read = true;
-		}
-		if (document.getElementById("write-checkbox").checked){
-			write = true;
-		}
-
+	function setPolicy(address, index, read, write){
 		var policyCheck = myDevices.GetPolicyReadWrite(address, index);
 		var policyExists = policyCheck[2];
 		var policyEvent;
@@ -102,9 +107,7 @@ function init(){
 		})
 	}
 
-	function removePolicy(){
-		var index = document.getElementById("deviceIndex-PolRem").value;
-		var address = document.getElementById("addressPerson-PolRem").value;
+	function removePolicy(address, index){
 		var policyCheck = myDevices.GetPolicyReadWrite(address, index);
 		var policyExists = policyCheck[2];
 		var removeEvent;
@@ -145,10 +148,11 @@ function init(){
 		var deviceList = [];
 		var length = myDevices.GetDeviceListLength();
 		for (var i=0; i<length; i++){
-			var result = myDevices.GetNameByIndex(i);
-			if (result[2]){
+			var result = myDevices.GetDeviceByIndex(i);
+			if (result[3]){ //success
 				var name = result[0];
 				var id = result[1]
+				var owner = result[2];
 				deviceList.push({id: id, name: name});
 			}
 		}
@@ -177,14 +181,89 @@ function init(){
 			for (var i=0; i<deviceList.length; i++){
 				//create div for each device
 				var newDevice = document.createElement("div");
-				newDevice.id = "device"+i;
+				newDevice.id = "device-"+i;
 				newDevice.className = "device";
 				newDevice.setAttribute('data-name', deviceList[i].name);
 				newDevice.setAttribute('data-id', deviceList[i].id);
-				newDevice.innerHTML = "Device: "+deviceList[i].name+"<br>Id: "+deviceList[i].id;
+				newDevice.innerHTML = "<p>Device: "+deviceList[i].name+"<br>Id: "+deviceList[i].id+"</p>";
 				document.getElementById("devicelist").appendChild(newDevice);
 
 				//create div for each policy(no function to fetch policy without address yet)
+				var policyContainer = document.createElement("div");
+				policyContainer.id =newDevice.id+"-policyContainer";
+				newDevice.appendChild(policyContainer);
+				var policy = myDevices.GetPolicyByIndex(0, i);
+				var policyListLength = policy[4];
+				for (var j=0; j<policyListLength; j++){
+					policy = myDevices.GetPolicyByIndex(j, i); //returns (address person, bool Read, bool Write, bool Success, uint l)
+					var newPolicy = document.createElement("div");
+					if (policy[3]){ //success
+						newPolicy.id = newDevice.id+"-policy-"+j;
+						newPolicy.className = "-policy";
+						newPolicy.setAttribute('data-address', policy[0]);
+						newPolicy.setAttribute('data-read',policy[1]);
+						newPolicy.setAttribute('data-write',policy[2]);
+						newPolicy.setAttribute('data-deviceindex', i);
+						newPolicy.innerHTML = "<p>Address: "+policy[0]+"</p><br>";
+						/*
+						* Add checkboxes for read/write and update button/remove policy button
+						*/
+						var readBox = document.createElement("input");
+						readBox.type = "checkbox";
+						readBox.id = newPolicy.id+"-readbox";
+						if (policy[1]){ readBox.checked = true; }
+						
+						var readP = document.createElement("p");
+						readP.innerHTML = "Read: ";
+
+						var writeBox = document.createElement("input");
+						writeBox.type = "checkbox";
+						writeBox.id = newPolicy.id+"-writebox";
+						if (policy[2]){ writeBox.checked = true; }
+
+						var writeP = document.createElement("p");
+						writeP.innerHTML = "Write: ";
+
+						var updateBtn = document.createElement("input");
+						updateBtn.type = "button";
+						updateBtn.id = newPolicy.id+"-ubtn";
+						updateBtn.value = "update";
+
+						var removeBtn = document.createElement("input");
+						removeBtn.type = "button";
+						removeBtn.id = newPolicy.id+"-rbtn";
+						removeBtn.value = "remove";
+						
+						policyContainer.appendChild(newPolicy);
+						newPolicy.appendChild(readP);
+						newPolicy.appendChild(readBox);
+						newPolicy.appendChild(writeP);
+						newPolicy.appendChild(writeBox);
+						newPolicy.appendChild(updateBtn);
+						newPolicy.appendChild(removeBtn);
+						newPolicy.appendChild(document.createElement("br"));
+						document.getElementById(newPolicy.id+"-ubtn").addEventListener("click", function() {
+							var parent = this.parentNode;
+							var address = parent.getAttribute("data-address");
+							var index = parent.getAttribute("data-deviceindex");
+							var read = false;
+							var write = false;
+							if (document.getElementById(parent.id+"-readbox").checked){
+								read = true;
+							}
+							if (document.getElementById(parent.id+"-writebox").checked){
+								write = true;
+							}
+							setPolicy(address, index, read, write);
+						});
+						document.getElementById(newPolicy.id+"-rbtn").addEventListener("click", function() {
+							var parent = this.parentNode;
+							var address = parent.getAttribute("data-address");
+							var index = parent.getAttribute("data-deviceindex");
+							removePolicy(address, index);
+						});
+					}
+				}
 				
 			}
 		}
