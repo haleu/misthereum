@@ -15,7 +15,12 @@ import org.eclipse.jetty.websocket.api.WebSocketListener;
 
 public class MinerEventHandler implements WebSocketListener{
 	
-	Session Miner = null;
+	private static Session Miner = null;
+	
+	public static Session GetMiner()
+	{
+		return Miner;
+	}
 	
 	public void SendToMiner(String Message)
 	{

@@ -20,7 +20,6 @@ public class MinerNetwork{
         server.start();
         server.join();
     }
-	
 	public MinerNetwork()
 	{
 		Server server = new Server(8080);
