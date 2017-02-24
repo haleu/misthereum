@@ -9,12 +9,20 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.eclipse.jetty.websocket.api.WebSocketListener;
 
-public class MinerEventHandler extends EventHandler implements WebSocketListener{
-
-	@Override
-	public void NetworkMessage(String[] Message) {
-		// TODO Auto-generated method stub
-		
+public class MinerEventHandler implements WebSocketListener{
+	
+	Session Miner = null;
+	
+	public void SendToMiner(String Message)
+	{
+		if(Miner != null)
+		{
+			try {
+				Miner.getRemote().sendString(Message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -29,6 +37,7 @@ public class MinerEventHandler extends EventHandler implements WebSocketListener
 		System.out.println("Connect: " + arg0.getRemoteAddress().getAddress());
         try {
             arg0.getRemote().sendString("Hello Webbrowser");
+            Miner = arg0;
         } catch (IOException e) {
             e.printStackTrace();
         }
