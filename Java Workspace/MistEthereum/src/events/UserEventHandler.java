@@ -11,6 +11,11 @@ public class UserEventHandler extends EventHandler{
 		Owner = c;
 	}
 	
+	public Client GetOwner()
+	{
+		return Owner;
+	}
+	
 	@Override
 	public void NetworkMessage(String[] Message) {
 		// TODO Auto-generated method stub
