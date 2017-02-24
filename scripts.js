@@ -186,10 +186,10 @@ function init(){
 				newDevice.className = "device";
 				newDevice.setAttribute('data-name', deviceList[i].name);
 				newDevice.setAttribute('data-id', deviceList[i].id);
-				newDevice.innerHTML = "<p>Device: "+deviceList[i].name+"<br>Id: "+deviceList[i].id+"</p>";
+				newDevice.innerHTML = "<div class='info'><p class='name'>Device: "+deviceList[i].name+"</p><p class='id'>Id: "+deviceList[i].id+"</p></div>";
 				document.getElementById("devicelist").appendChild(newDevice);
 
-				//create div for each policy(no function to fetch policy without address yet)
+				//create div for each policy
 				var policyContainer = document.createElement("div");
 				policyContainer.id =newDevice.id+"-policyContainer";
 				newDevice.appendChild(policyContainer);
@@ -205,16 +205,16 @@ function init(){
 						newPolicy.setAttribute('data-read',policy[1]);
 						newPolicy.setAttribute('data-write',policy[2]);
 						newPolicy.setAttribute('data-deviceindex', i);
-						newPolicy.innerHTML = "<p>Address: "+policy[0]+"</p>";
+						newPolicy.innerHTML = "<div class='info'><p class='address'>Address: "+policy[0]+"</p></div>";
 						/*
 						* Add checkboxes for read/write and update button/remove policy button
 						*/
-						var content = document.createElement("div");
-						content.id = newPolicy.id+"-content";
+						var policyEdit = document.createElement("div");
+						policyEdit.className = "policyedit";
 						
 						var readBox = document.createElement("input");
 						readBox.type = "checkbox";
-						readBox.id = content.id+"-readbox";
+						readBox.id = newPolicy.id+"-readbox";
 						if (policy[1]){ readBox.checked = true; }
 						
 						var readP = document.createElement("p");
@@ -222,7 +222,7 @@ function init(){
 
 						var writeBox = document.createElement("input");
 						writeBox.type = "checkbox";
-						writeBox.id = content.id+"-writebox";
+						writeBox.id = newPolicy.id+"-writebox";
 						if (policy[2]){ writeBox.checked = true; }
 
 						var writeP = document.createElement("p");
@@ -230,41 +230,39 @@ function init(){
 
 						var updateBtn = document.createElement("input");
 						updateBtn.type = "button";
-						updateBtn.id = content.id+"-ubtn";
+						updateBtn.id = newPolicy.id+"-ubtn";
 						updateBtn.value = "update";
 
 						var removeBtn = document.createElement("input");
 						removeBtn.type = "button";
-						removeBtn.id = content.id+"-rbtn";
+						removeBtn.id = newPolicy.id+"-rbtn";
 						removeBtn.value = "remove";
 						
 						policyContainer.appendChild(newPolicy);
-						newPolicy.appendChild(content);
-						content.appendChild(readP);
-						content.appendChild(readBox);
-						content.appendChild(writeP);
-						content.appendChild(writeBox);
-						content.appendChild(updateBtn);
-						content.appendChild(removeBtn);
-						document.getElementById(content.id+"-ubtn").addEventListener("click", function() {
+						newPolicy.appendChild(policyEdit);
+						policyEdit.appendChild(readP);
+						policyEdit.appendChild(readBox);
+						policyEdit.appendChild(writeP);
+						policyEdit.appendChild(writeBox);
+						policyEdit.appendChild(updateBtn);
+						policyEdit.appendChild(removeBtn);
+						document.getElementById(newPolicy.id+"-ubtn").addEventListener("click", function() {
 							var parent = this.parentNode.parentNode;
 							var address = parent.getAttribute("data-address");
 							var index = parent.getAttribute("data-deviceindex");
 							var read = false;
 							var write = false;
-							if (document.getElementById(parent.id+"-content-readbox").checked){
+							if (document.getElementById(parent.id+"-readbox").checked){
 								read = true;
 							}
-							if (document.getElementById(parent.id+"-content-writebox").checked){
+							if (document.getElementById(parent.id+"-writebox").checked){
 								write = true;
 							}
-							setPolicy(address, index, read, write);
 						});
-						document.getElementById(content.id+"-rbtn").addEventListener("click", function() {
+						document.getElementById(newPolicy.id+"-rbtn").addEventListener("click", function() {
 							var parent = this.parentNode.parentNode;
 							var address = parent.getAttribute("data-address");
 							var index = parent.getAttribute("data-deviceindex");
-							removePolicy(address, index);
 						});
 					}
 				}
