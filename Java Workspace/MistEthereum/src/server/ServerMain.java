@@ -15,7 +15,8 @@ public class ServerMain {
 	{
 		ServerNetwork sn = new ServerNetwork();
 		ServerState.GetState().SetNetwork(sn);
-		
+		MinerNetwork mn = new MinerNetwork();
+		ServerState.GetState().SetMiner(mn);
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -29,7 +30,9 @@ public class ServerMain {
 		
 		lobby.start();
 		
-		MinerNetwork mn = new MinerNetwork();
+		
+		
+		
 		
 	}
 	
