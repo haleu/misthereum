@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import events.DeviceEventHandler;
 import events.EventHandler;
+import events.UserEventHandler;
 
 public class Client extends Thread{
 	
@@ -12,7 +15,7 @@ public class Client extends Thread{
 	private ObjectOutputStream Output;
 	private ObjectInputStream Input;
 	private boolean Connected = false;
-	private EventHandler EventHandler;
+	private EventHandler EventHandler = null;
 	
 	public Client(Socket s)
 	{
@@ -63,7 +66,21 @@ public class Client extends Thread{
 			{			
 				try {
 					String[] s = (String[])Input.readObject();
-					System.out.println(s[0]);
+					if(EventHandler == null)
+					{
+						if(s[0].equals("User"))
+						{
+							SetEventHandler(new UserEventHandler(this));
+							System.out.println("User event handler created");
+						}else if(s[0].equals("Device"))
+						{
+							SetEventHandler(new DeviceEventHandler(this));
+							System.out.println("Device event handler created");
+						}
+					}else{
+						EventHandler.NetworkMessage(s);
+					}
+					
 				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
 					try {

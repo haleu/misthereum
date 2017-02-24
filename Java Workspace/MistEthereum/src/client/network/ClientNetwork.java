@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Observable;
 
+import client.data.ClientState;
+
 public class ClientNetwork extends Observable implements Runnable{
 	
 
@@ -95,6 +97,7 @@ public class ClientNetwork extends Observable implements Runnable{
 	        	if(In != null){
 	        		try {
 						String[] s = (String[])In.readObject();
+						ClientState.GetState().GetEventHandler().NetworkMessage(s);
 						setChanged();
 						notifyObservers();
 											
