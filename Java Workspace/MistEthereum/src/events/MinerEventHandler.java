@@ -1,6 +1,8 @@
 package events;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -9,6 +11,8 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.eclipse.jetty.websocket.api.WebSocketListener;
 
+
+
 public class MinerEventHandler implements WebSocketListener{
 	
 	Session Miner = null;
@@ -16,7 +20,7 @@ public class MinerEventHandler implements WebSocketListener{
 	public void SendToMiner(String Message)
 	{
 		if(Miner != null)
-		{
+		{		
 			try {
 				Miner.getRemote().sendString(Message);
 			} catch (IOException e) {
