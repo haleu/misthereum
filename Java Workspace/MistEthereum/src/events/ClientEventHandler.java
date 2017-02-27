@@ -23,17 +23,13 @@ public class ClientEventHandler extends EventHandler{
 		}
 	}
 	
+	/*
+	 * This can be changed
+	 */
 	public void ButtonMessage(String Message) {
 		String[] s = new String[1];
 		s[0] = Message;
-		try {
-			ObjectOutputStream output = ClientState.GetState().GetNetwork().GetOutput();
-			output.writeObject(s);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		SendToServer(s);
 	}
 
 }
