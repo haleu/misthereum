@@ -27,9 +27,10 @@ public class UserEventHandler extends EventHandler{
 	 * This can be changed
 	 */
 	public void ButtonMessage(String Message) {
-		String[] s = new String[1];
-		s[0] = Message;
-		SendToServer(s);
+		if(Message == "Device")
+		{
+			ClientState.GetState().SetEventHandler(new DeviceEventHandler());
+		}
 	}
 
 }
