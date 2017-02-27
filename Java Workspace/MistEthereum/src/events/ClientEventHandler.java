@@ -61,6 +61,10 @@ public class ClientEventHandler extends EventHandler{
 			Client c = ServerState.GetState().GetClients().get(0);
 			SendToClient(c, Message);
 		}
+		else if(Message[0].equals("Get Devicelist"))
+		{
+			
+		}
 	}
 	
 }
