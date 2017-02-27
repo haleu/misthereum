@@ -9,6 +9,10 @@ import server.client.Client;
 import server.data.ServerState;
 import server.network.MinerNetwork;
 
+/* 
+ * tar emot ett message från clienten och hämtar address och skickar vidare till miner via sendToMiner().
+ */
+
 public class ClientEventHandler extends EventHandler{
 
 	private Client Owner = null;
@@ -42,6 +46,8 @@ public class ClientEventHandler extends EventHandler{
 			e.printStackTrace();
 		}
 	}
+	
+	// Här hanteras messages från client
 	
 	@Override
 	public void NetworkMessage(String[] Message) {

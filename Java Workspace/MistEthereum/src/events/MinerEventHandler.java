@@ -11,7 +11,9 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.eclipse.jetty.websocket.api.WebSocketListener;
 
-
+/*
+ * Får tillbaka ett message från miner efter clienteventhandler har skickat till miner. onWebSocketText() tar emot message från miner.
+ */
 
 public class MinerEventHandler implements WebSocketListener{
 	
