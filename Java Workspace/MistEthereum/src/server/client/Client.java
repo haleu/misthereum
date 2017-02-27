@@ -77,9 +77,9 @@ public class Client extends Thread{
 					if(EventHandler == null)
 					{
 						SetEventHandler(new ClientEventHandler(this));
-					}else{
-						EventHandler.NetworkMessage(s);
 					}
+					EventHandler.NetworkMessage(s);
+					
 					
 				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();

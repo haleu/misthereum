@@ -1,5 +1,5 @@
 package server.data;
 
-public class ClientState {
+public abstract class ClientState {
 
 }
