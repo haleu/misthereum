@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import org.eclipse.jetty.websocket.api.Session;
 
 import server.client.Client;
-import server.data.ServerState;
+import server.data.*;
 import server.network.MinerNetwork;
 
 /* 
@@ -60,6 +60,9 @@ public class ClientEventHandler extends EventHandler{
 		{
 			Client c = ServerState.GetState().GetClients().get(0);
 			SendToClient(c, Message);
+		}else if(Message[0].equals("Device"))
+		{
+			Owner.SetState(new DeviceState());
 		}
 	}
 	

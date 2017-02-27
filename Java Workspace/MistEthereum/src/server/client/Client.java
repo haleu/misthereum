@@ -8,6 +8,7 @@ import java.net.Socket;
 import events.DeviceEventHandler;
 import events.EventHandler;
 import server.data.ClientState;
+import server.data.UserState;
 import events.ClientEventHandler;
 
 public class Client extends Thread{
@@ -22,6 +23,11 @@ public class Client extends Thread{
 	public ClientState GetState()
 	{
 		return State;
+	}
+	
+	public void SetState(ClientState cs)
+	{
+		State = cs;
 	}
 	
 	public Client(Socket s)
@@ -77,6 +83,9 @@ public class Client extends Thread{
 					if(EventHandler == null)
 					{
 						SetEventHandler(new ClientEventHandler(this));
+					}
+					if(State == null){
+						SetState(new UserState());
 					}
 					EventHandler.NetworkMessage(s);
 					

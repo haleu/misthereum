@@ -37,7 +37,10 @@ public class UserEventHandler extends EventHandler{
 	public void ButtonMessage(String Message) {
 		if(Message.equals("Device"))
 		{
+			String[] s = new String[0];
+			s[0] = "Device";
 			ClientState.GetState().SetEventHandler(new DeviceEventHandler());
+			SendToServer(s);
 		}else if(Message.equals("Get Temp"))
 		{
 			String[] s = new String[1];
