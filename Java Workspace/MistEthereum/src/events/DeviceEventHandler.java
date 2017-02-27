@@ -4,8 +4,7 @@ import server.client.Client;
 
 public class DeviceEventHandler extends UserEventHandler{
 
-	public DeviceEventHandler(Client c) {
-		super(c);
+	public DeviceEventHandler() {
 	}
 
 	@Override

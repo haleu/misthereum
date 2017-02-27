@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 
 import client.data.ClientState;
 import client.network.ClientNetwork;
-import events.ClientEventHandler;
+import events.UserEventHandler;
 
 public class ClientGUI implements Observer{
 
@@ -56,7 +56,7 @@ public class ClientGUI implements Observer{
 			public void actionPerformed(ActionEvent e) {
 					String s;
 					s = CommandText.getText();
-					((ClientEventHandler)State.GetEventHandler()).ButtonMessage(s);;
+					((UserEventHandler)State.GetEventHandler()).ButtonMessage(s);;
 			}
 		});
 		

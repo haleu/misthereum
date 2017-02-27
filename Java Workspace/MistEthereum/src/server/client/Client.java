@@ -7,7 +7,7 @@ import java.net.Socket;
 
 import events.DeviceEventHandler;
 import events.EventHandler;
-import events.UserEventHandler;
+import events.ClientEventHandler;
 
 public class Client extends Thread{
 	
@@ -68,15 +68,7 @@ public class Client extends Thread{
 					String[] s = (String[])Input.readObject();
 					if(EventHandler == null)
 					{
-						if(s[0].equals("User"))
-						{
-							SetEventHandler(new UserEventHandler(this));
-							System.out.println("User event handler created");
-						}else if(s[0].equals("Device"))
-						{
-							SetEventHandler(new DeviceEventHandler(this));
-							System.out.println("Device event handler created");
-						}
+						SetEventHandler(new ClientEventHandler(this));
 					}else{
 						EventHandler.NetworkMessage(s);
 					}

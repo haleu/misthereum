@@ -3,29 +3,19 @@ package events;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import org.eclipse.jetty.websocket.api.Session;
-
-import server.client.Client;
-import server.data.ServerState;
-import server.network.MinerNetwork;
+import client.data.ClientState;
 
 public class UserEventHandler extends EventHandler{
 
-	private Client Owner = null;
-
-	public UserEventHandler(Client c)
-	{
-		Owner = c;
+	@Override
+	public void NetworkMessage(String[] Message) {
+		// TODO Auto-generated method stub
+		
 	}
 	
-	public Client GetOwner()
+	public void SendToServer(String[] Message)
 	{
-		return Owner;
-	}
-	
-	public void SendToClient(Client c, String[] Message)
-	{
-		ObjectOutputStream output = c.GetOutput();
+		ObjectOutputStream output = ClientState.GetState().GetNetwork().GetOutput();
 		try {
 			output.writeObject(Message);
 		} catch (IOException e) {
@@ -33,19 +23,13 @@ public class UserEventHandler extends EventHandler{
 		}
 	}
 	
-	public void SendToMiner(String Message)
-	{
-		Session session = MinerEventHandler.GetMiner();
-		try {
-			session.getRemote().sendString(Message);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	/*
+	 * This can be changed
+	 */
+	public void ButtonMessage(String Message) {
+		String[] s = new String[1];
+		s[0] = Message;
+		SendToServer(s);
 	}
-	
-	@Override
-	public void NetworkMessage(String[] Message) {
-		
-	}
-	
+
 }

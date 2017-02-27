@@ -3,7 +3,7 @@ package client.data;
 import java.util.Observable;
 
 import client.network.ClientNetwork;
-import events.ClientEventHandler;
+import events.UserEventHandler;
 import events.EventHandler;
 
 public class ClientState extends Observable{
@@ -14,7 +14,7 @@ public class ClientState extends Observable{
 
 	public ClientState()
 	{
-		EventHandler = new ClientEventHandler();
+		EventHandler = new UserEventHandler();
 	}
 	
 	public EventHandler GetEventHandler()
