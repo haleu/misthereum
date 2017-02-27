@@ -145,7 +145,7 @@ function init(){
 		return myDevices.GetPolicyReadWrite(address, index);
 	}
 
-	function getDeviceList(){
+	function getDeviceList(address){
 		var deviceList = [];
 		var length = myDevices.GetDeviceListLength();
 		for (var i=0; i<length; i++){
@@ -154,7 +154,7 @@ function init(){
 				var name = result[0];
 				var id = result[1]
 				var owner = result[2];
-				deviceList.push({id: id, name: name});
+				if (owner == address) {deviceList.push({id: id, name: name});}
 			}
 		}
 		return deviceList;
@@ -178,7 +178,7 @@ function init(){
 		var length = myDevices.GetDeviceListLength();
 		var output = "";
 		if (length > 0){
-			deviceList = getDeviceList();
+			deviceList = getDeviceList(web3.eth.accounts[0]);
 			for (var i=0; i<deviceList.length; i++){
 				//create div for each device
 				var newDevice = document.createElement("div");
@@ -258,11 +258,13 @@ function init(){
 							if (document.getElementById(parent.id+"-writebox").checked){
 								write = true;
 							}
+							setPolicy(address, index, read, write);
 						});
 						document.getElementById(newPolicy.id+"-rbtn").addEventListener("click", function() {
 							var parent = this.parentNode.parentNode;
 							var address = parent.getAttribute("data-address");
 							var index = parent.getAttribute("data-deviceindex");
+							removePolicy(address, index);
 						});
 					}
 				}
@@ -299,8 +301,30 @@ function init(){
 			};
 			
 			ws.onmessage = function (evt) { 
-				var message = evt.data;
-				console.log("Recieved message: "+message);
+				console.log("Recieved message: "+evt.data);
+				var message = evt.data.split(",");//address,device_id, op, data...
+				var address = message[0];
+				var device = message[1];
+				var op = message[2];
+
+				if (op == "checkpolicy"){ //all ops which need a policy check
+					var result = checkPolicy(device, address);	//returns (bool Read,bool Write, bool Success)
+					var read = result[0];
+					var write = result[1];
+					ws.send(message+","+read+","+write);
+					console.log("Sent message: "+message+","+read+","+write);
+					
+				}
+				if (op == "getdevicelist"){
+					var deviceList = getDeviceList(address);
+					var dataoutput = "";
+					for (var i=0; i<deviceList.length;i++){
+						dataoutput += ","+deviceList[i].id+"-"+deviceList[i].name;
+					}
+					ws.send(message+dataoutput);
+					console.log("Sent message: "+message+dataoutput);
+				}
+
 			};
 			
 			ws.onclose = function(){ 
