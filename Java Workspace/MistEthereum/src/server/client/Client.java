@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import events.DeviceEventHandler;
 import events.EventHandler;
+import server.data.ClientState;
 import events.ClientEventHandler;
 
 public class Client extends Thread{
@@ -16,6 +17,12 @@ public class Client extends Thread{
 	private ObjectInputStream Input;
 	private boolean Connected = false;
 	private EventHandler EventHandler = null;
+	private ClientState State = null;
+	
+	public ClientState GetState()
+	{
+		return State;
+	}
 	
 	public Client(Socket s)
 	{
