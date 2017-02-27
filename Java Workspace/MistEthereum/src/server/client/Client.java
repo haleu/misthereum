@@ -20,13 +20,6 @@ public class Client extends Thread{
 	public Client(Socket s)
 	{
 		ClientSocket = s;
-
-		try {
-			Output = new ObjectOutputStream(ClientSocket.getOutputStream());
-		} catch (IOException e) {
-			System.out.println("Could not get output Stream");
-		}
-		
 		Connected = true;
 		start();
 	}
@@ -43,6 +36,14 @@ public class Client extends Thread{
 	
 	public ObjectOutputStream GetOutput()
 	{
+		if(Output == null)
+		{
+			try {
+				Output = new ObjectOutputStream(ClientSocket.getOutputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return Output;
 	}
 	

@@ -45,7 +45,16 @@ public class ClientEventHandler extends EventHandler{
 	
 	@Override
 	public void NetworkMessage(String[] Message) {
-		
+		if(Message[0].equals("Get Temp"))
+		{
+			Client c = ServerState.GetState().GetClients().get(0);
+			SendToClient(c, Message);
+		}
+		else if(Message[0].equals("Give Temp"))
+		{
+			Client c = ServerState.GetState().GetClients().get(0);
+			SendToClient(c, Message);
+		}
 	}
 	
 }

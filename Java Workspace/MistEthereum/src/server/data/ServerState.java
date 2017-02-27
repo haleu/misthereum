@@ -11,7 +11,7 @@ public class ServerState {
 	private static ServerState State = null;
 	private MinerNetwork Miner;
 	private ServerNetwork Network;
-	private ArrayList<Client> Users = new ArrayList<Client>();
+	private ArrayList<Client> Clients = new ArrayList<Client>();
 
 	static public ServerState GetState()
 	{
@@ -44,7 +44,12 @@ public class ServerState {
 	
 	public void AddUser(Client uc)
 	{
-		Users.add(uc);
+		Clients.add(uc);
+	}
+	
+	public ArrayList<Client> GetClients()
+	{
+		return Clients;
 	}
 	
 }

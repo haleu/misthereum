@@ -15,5 +15,8 @@ public class MainClient {
 		ClientGUI cgui = new ClientGUI(cn, cs);
 		
 		cs.SetEventHandler(new UserEventHandler());
+		
+		Thread network = new Thread(cn);
+		network.start();
 	}
 }
