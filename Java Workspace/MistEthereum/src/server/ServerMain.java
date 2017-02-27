@@ -18,6 +18,9 @@ public class ServerMain {
 		MinerNetwork mn = new MinerNetwork();
 		ServerState.GetState().SetMiner(mn);
 		
+		Thread miner = new Thread(mn);
+		miner.start();
+		
 		Scanner in = new Scanner(System.in);
 		
 		sn.SetPortNumber(in.nextInt());
@@ -29,9 +32,6 @@ public class ServerMain {
 		Thread lobby = new Thread(sl);
 		
 		lobby.start();
-		
-		
-		
 		
 		
 	}

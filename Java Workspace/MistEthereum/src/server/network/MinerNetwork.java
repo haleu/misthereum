@@ -6,21 +6,21 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import events.MinerEventHandler;
 
-public class MinerNetwork{
+public class MinerNetwork implements Runnable{
 
-	public static void main(String[] args) throws Exception {
-        Server server = new Server(8080);
-        WebSocketHandler wsHandler = new WebSocketHandler() {
-            @Override
-            public void configure(WebSocketServletFactory factory) {
-                factory.register(MinerEventHandler.class);
-            }
-        };
-        server.setHandler(wsHandler);
-        server.start();
-        server.join();
-    }
-	public MinerNetwork()
+//	public static void main(String[] args) throws Exception {
+//        Server server = new Server(8080);
+//        WebSocketHandler wsHandler = new WebSocketHandler() {
+//            @Override
+//            public void configure(WebSocketServletFactory factory) {
+//                factory.register(MinerEventHandler.class);
+//            }
+//        };
+//        server.setHandler(wsHandler);
+//        server.start();
+//        server.join();
+//    }
+	public void StartMinerNetwork()
 	{
 		Server server = new Server(8080);
         WebSocketHandler wsHandler = new WebSocketHandler() {
@@ -36,6 +36,12 @@ public class MinerNetwork{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}    
+	}
+
+	@Override
+	public void run() {
+		StartMinerNetwork();
+		
 	}
 	
 }
