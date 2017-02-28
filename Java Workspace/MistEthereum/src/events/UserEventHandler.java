@@ -41,13 +41,18 @@ public class UserEventHandler extends EventHandler{
 			SendToServer(s);
 		}else if(Message.equals("Get Temp"))
 		{
-			String[] s = new String[4];
-			s[0] = "Get Temp"; // Operation
-			s[1] = "null";	// User
-			s[2] = "0";	// Device
-			s[3] = "null";	// Data
-			SendToServer(s);
+			GetTemp();
 		}
+	}
+	
+	private void GetTemp()
+	{
+		String[] s = new String[4];
+		s[0] = "Get Temp"; // Operation
+		s[1] = "null";	// User
+		s[2] = "0";	// Device
+		s[3] = "null";	// Data
+		SendToServer(s);
 	}
 
 }
