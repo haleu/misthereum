@@ -10,14 +10,9 @@ public class UserEventHandler extends EventHandler{
 
 	@Override
 	public void NetworkMessage(String[] Message) {
-		if(Message[0].equals("Get Temp"))
+		if(Message[0].equals("Give Temp"))
 		{
-			System.out.println("Get temp!");
-			Message[0] = "Give Temp";
-			SendToServer(Message);
-		}else if(Message[0].equals("Give Temp"))
-		{
-			System.out.println("Got Temp");
+			System.out.println("Temperature of device: " + Message[2] + " is: " + Message[3]);
 		}
 	}
 	
@@ -37,14 +32,20 @@ public class UserEventHandler extends EventHandler{
 	public void ButtonMessage(String Message) {
 		if(Message.equals("Device"))
 		{
-			String[] s = new String[0];
+			String[] s = new String[4];
 			s[0] = "Device";
+			s[1] = "null";
+			s[2] = "null";
+			s[3] = "null";
 			ClientState.GetState().SetEventHandler(new DeviceEventHandler());
 			SendToServer(s);
 		}else if(Message.equals("Get Temp"))
 		{
-			String[] s = new String[1];
-			s[0] = "Get Temp";
+			String[] s = new String[4];
+			s[0] = "Get Temp"; // Operation
+			s[1] = "null";	// User
+			s[2] = "0";	// Device
+			s[3] = "null";	// Data
 			SendToServer(s);
 		}
 	}

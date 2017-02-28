@@ -53,16 +53,46 @@ public class ClientEventHandler extends EventHandler{
 	public void NetworkMessage(String[] Message) {
 		if(Message[0].equals("Get Temp"))
 		{
-			Client c = ServerState.GetState().GetClients().get(1);
-			SendToClient(c, Message);
+			GetTemp(Message);
 		}
 		else if(Message[0].equals("Give Temp"))
 		{
-			Client c = ServerState.GetState().GetClients().get(0);
-			SendToClient(c, Message);
-		}else if(Message[0].equals("Device"))
+			GiveTemp(Message);
+		}
+		else if(Message[0].equals("Device"))
 		{
 			Owner.SetState(new DeviceState());
+		}
+	}
+	
+	private void GetTemp(String[] Message)
+	{
+		for(Client c : ServerState.GetState().GetClients())
+		{
+			if(c.GetState() instanceof DeviceState)
+			{
+				if(((DeviceState)c.GetState()).ID == Integer.parseInt(Message[2]))
+				{
+					Message[1] = Integer.toString(((UserState)Owner.GetState()).ID);
+					SendToClient(c, Message);
+					break;
+				}
+			}
+		}
+	}
+	
+	private void GiveTemp(String[] Message)
+	{
+		for(Client c : ServerState.GetState().GetClients())
+		{
+			if(c.GetState() instanceof UserState)
+			{
+				if(((UserState)c.GetState()).ID == Integer.parseInt(Message[1]))
+				{
+					SendToClient(c, Message);
+					break;
+				}
+			}
 		}
 	}
 	
