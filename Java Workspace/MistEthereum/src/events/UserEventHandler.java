@@ -30,7 +30,9 @@ public class UserEventHandler extends EventHandler{
 	 * This can be changed
 	 */
 	public void ButtonMessage(String Message) {
-		if(Message.equals("Device"))
+		String[] split = Message.split(",");
+		
+		if(split[0].equals("Device"))
 		{
 			String[] s = new String[4];
 			s[0] = "Device";
@@ -39,18 +41,19 @@ public class UserEventHandler extends EventHandler{
 			s[3] = "null";
 			ClientState.GetState().SetEventHandler(new DeviceEventHandler());
 			SendToServer(s);
-		}else if(Message.equals("Get Temp"))
+		}else if(split[0].equals("Get Temp"))
 		{
-			GetTemp();
+			GetTemp(Message);
 		}
 	}
 	
-	private void GetTemp()
+	private void GetTemp(String Message)
 	{
+		String[] split = Message.split(",");
 		String[] s = new String[4];
 		s[0] = "Get Temp"; // Operation
 		s[1] = "null";	// User
-		s[2] = "0";	// Device
+		s[2] = split[1];	// Device
 		s[3] = "null";	// Data
 		SendToServer(s);
 	}
