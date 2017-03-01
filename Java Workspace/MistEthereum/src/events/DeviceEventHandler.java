@@ -22,6 +22,7 @@ public class DeviceEventHandler extends UserEventHandler{
 	
 	private void GetTemp(String[] Message)
 	{
+		Message[0] = "Give Data";
 		Message[1] = "Give Temp";
 		Message[4] = Integer.toString(temp);
 		temp++;
