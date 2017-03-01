@@ -302,27 +302,43 @@ function init(){
 			
 			ws.onmessage = function (evt) { 
 				console.log("Recieved message: "+evt.data);
-				var message = evt.data.split(",");//address,device_id, op, data...
-				var address = message[0];
-				var device = message[1];
-				var op = message[2];
+				var message = evt.data.split(",");	//message structure IS [operation, secondary operation, args...., data....]
+				var op = message[0];
 
-				if (op == "checkpolicy"){ //all ops which need a policy check
+				if (op == "Set Data"){		//Set Data: [Set Data, <secondary operation>, address, device, data]
+					address = message[2];
+					device = message[3];
+					var result = checkPolicy(device, address);	//returns (bool Read,bool Write, bool Success)
+					var write = result[1];
+					ws.send(message+","+write);
+					console.log("Sent message: "+message+","+write);
+				}
+				if (op == "Get Data"){		//Get Data: [Get Data, <secondary operation>, address, device, data]
+					address = message[2];
+					device = message[3];
 					var result = checkPolicy(device, address);	//returns (bool Read,bool Write, bool Success)
 					var read = result[0];
-					var write = result[1];
-					ws.send(message+","+read+","+write);
-					console.log("Sent message: "+message+","+read+","+write);
-					
+					ws.send(message+","+read);
+					console.log("Sent message: "+message+","+read);
 				}
-				if (op == "getdevicelist"){
+				if (op == "Get Devices"){	//Get Devices: [Get Devices, <secondary operation>, address, data]
+					address = message[2];
 					var deviceList = getDeviceList(address);
-					var dataoutput = "";
 					for (var i=0; i<deviceList.length;i++){
-						dataoutput += ","+deviceList[i].id+"-"+deviceList[i].name;
+						var devicedata = ","+deviceList[i].id+"-"+deviceList[i].name;
+						ws.send(message+","+devicedata);
+						console.log("Sent message: "+message+","+devicedata);
 					}
-					ws.send(message+dataoutput);
-					console.log("Sent message: "+message+dataoutput);
+				}
+				if (op == "Login"){	//login: [Login, <secondary operation>, username, password, address]
+					var username = message[2];
+					var password = message[3];
+					/*
+					* check login with database, return address (ethereum address)
+					*/
+					var address = "";
+					ws.send(op+","+username+","+password+","+address);
+					console.log("Sent message: "+op+","+username+","+password+","+address);
 				}
 
 			};

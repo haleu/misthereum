@@ -61,8 +61,10 @@ public class UserEventHandler extends EventHandler{
 	
 	private void GetDevices(String[] s)
 	{
-		s[0] = "Get Devices";
-		s[1] = "null"; // Address
+		String[] s2 = new String[2];
+		s2[0] = "Get Devices";
+		s2[1] = "null"; // Address
+		SendToServer(s);
 	}
 	
 	private void Login(String[] Message)
