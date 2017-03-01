@@ -44,7 +44,20 @@ public class UserEventHandler extends EventHandler{
 		}else if(split[0].equals("Get Temp"))
 		{
 			GetTemp(Message);
+		}else if(split[0].equals("Login"))
+		{
+			Login(split);
 		}
+	}
+	
+	private void Login(String[] Message)
+	{
+		String[] s = new String[4];
+		s[0] = Message[0];
+		s[1] = Message[1];
+		s[2] = Message[2];
+		s[3] = "null";
+		SendToServer(s);
 	}
 	
 	private void GetTemp(String Message)

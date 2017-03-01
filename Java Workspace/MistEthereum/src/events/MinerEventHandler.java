@@ -2,6 +2,7 @@ package events;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
@@ -9,6 +10,11 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketError;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
+
+import server.client.Client;
+import server.data.ServerState;
+import server.data.UserState;
+
 import org.eclipse.jetty.websocket.api.WebSocketListener;
 
 /*
@@ -69,7 +75,29 @@ public class MinerEventHandler implements WebSocketListener{
 	@Override
 	public void onWebSocketText(String arg0) {
 		// TODO Auto-generated method stub
-		System.out.println("Message: " + arg0);
+		String[] s = arg0.split(",");
+		if(s[0].equals("Login"))
+		{
+			Login(s);
+		}
+	}
+	
+	private void Login(String[] s)
+	{
+		ArrayList<Client> clients = ServerState.GetState().GetClients();
+		
+		for(Client c: clients)
+		{
+			if(c.GetState() instanceof UserState)
+			{
+				UserState state = (UserState)c.GetState();
+				
+				if(state.Username.equals(s[1]) && state.Password.equals(s[2]))
+				{
+					state.Address = s[3];
+				}
+			}
+		}
 	}
 
 }

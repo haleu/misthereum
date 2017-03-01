@@ -18,11 +18,13 @@ public class DeviceEventHandler extends UserEventHandler{
 		
 	}
 	
+	int temp = 0;
+	
 	private void GetTemp(String[] Message)
 	{
-		Random rand = new Random();
 		Message[0] = "Give Temp";
-		Message[3] = Integer.toString(rand.nextInt());
+		Message[3] = Integer.toString(temp);
+		temp++;
 		SendToServer(Message);
 	}
 

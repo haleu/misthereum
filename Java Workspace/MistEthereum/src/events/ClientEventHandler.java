@@ -63,6 +63,18 @@ public class ClientEventHandler extends EventHandler{
 		{
 			Owner.SetState(new DeviceState());
 		}
+		else if(Message[0].equals("Login"))
+		{
+			Login(Message);
+		}
+	}
+	
+	private void Login(String[] Message)
+	{
+		((UserState)Owner.GetState()).Password = Message[1];
+		((UserState)Owner.GetState()).Username = Message[2];
+		String mm = Message[0] + "," + Message[1] + "," + Message[2] + "," + Message[3];
+		SendToMiner(mm);
 	}
 	
 	private void GetTemp(String[] Message)
