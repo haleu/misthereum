@@ -10,9 +10,9 @@ public class UserEventHandler extends EventHandler{
 
 	@Override
 	public void NetworkMessage(String[] Message) {
-		if(Message[0].equals("Give Temp"))
+		if(Message[1].equals("Give Temp"))
 		{
-			System.out.println("Temperature of device: " + Message[2] + " is: " + Message[3]);
+			System.out.println("Temperature of device: " + Message[3] + " is: " + Message[4]);
 		}
 	}
 	

@@ -30,7 +30,7 @@ public class ClientGUI implements Observer{
 	private final JButton DisconnectButton = new JButton("Disconnect");
 	private final JButton CommandButton = new JButton("Send");
 	private JLabel MessageLabel = new JLabel("Welcome");
-	private JTextField IPText = new JTextField("130.240.92.194");
+	private JTextField IPText = new JTextField("130.240.93.205");
 	private JTextField PortText = new JTextField("1234");
 	private JTextField CommandText = new JTextField("Input Command");
 	private JList<String> Devices = new JList<String>();

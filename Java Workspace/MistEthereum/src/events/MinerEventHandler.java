@@ -83,7 +83,6 @@ public class MinerEventHandler implements WebSocketListener{
 		}
 		else if(s[0].equals("Get Data"))
 		{
-			System.out.println(arg0);
 			ForwardData(s);
 		}
 		else if(s[0].equals("Set Data"))

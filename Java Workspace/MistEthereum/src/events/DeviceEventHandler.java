@@ -11,11 +11,10 @@ public class DeviceEventHandler extends UserEventHandler{
 
 	@Override
 	public void NetworkMessage(String[] Message) {
-		if(Message[0].equals("Get Temp"))
+		if(Message[1].equals("Get Temp"))
 		{
 			GetTemp(Message);
 		}
-		
 	}
 	
 	int temp = 0;
