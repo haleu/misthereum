@@ -79,18 +79,13 @@ public class ClientEventHandler extends EventHandler{
 	
 	private void GetTemp(String[] Message)
 	{
-		for(Client c : ServerState.GetState().GetClients())
+		Message[1] = ((UserState)Owner.GetState()).Address;
+		if(Message[1].equals("null"))
 		{
-			if(c.GetState() instanceof DeviceState)
-			{
-				if(((DeviceState)c.GetState()).ID == Integer.parseInt(Message[2]))
-				{
-					Message[1] = Integer.toString(((UserState)Owner.GetState()).ID);
-					SendToClient(c, Message);
-					break;
-				}
-			}
+			return;
 		}
+		String mm = Message[0] + "," + Message[1] + "," + Message[2] + "," + Message[3];
+		SendToMiner(mm);
 	}
 	
 	private void GiveTemp(String[] Message)
@@ -99,7 +94,7 @@ public class ClientEventHandler extends EventHandler{
 		{
 			if(c.GetState() instanceof UserState)
 			{
-				if(((UserState)c.GetState()).ID == Integer.parseInt(Message[1]))
+				if(((UserState)c.GetState()).Address == Message[1])
 				{
 					SendToClient(c, Message);
 					break;

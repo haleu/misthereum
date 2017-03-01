@@ -17,7 +17,7 @@ public class Client extends Thread{
 	private ObjectOutputStream Output;
 	private ObjectInputStream Input;
 	private boolean Connected = false;
-	private EventHandler EventHandler = null;
+	private ClientEventHandler EventHandler = null;
 	private ClientState State = null;
 	
 	public ClientState GetState()
@@ -37,12 +37,12 @@ public class Client extends Thread{
 		start();
 	}
 	
-	public void SetEventHandler(EventHandler e)
+	public void SetEventHandler(ClientEventHandler e)
 	{
 		EventHandler = e;
 	}
 	
-	public EventHandler GetEventHandler()
+	public ClientEventHandler GetEventHandler()
 	{
 		return EventHandler;
 	}

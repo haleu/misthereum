@@ -12,6 +12,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 import server.client.Client;
+import server.data.DeviceState;
 import server.data.ServerState;
 import server.data.UserState;
 
@@ -80,6 +81,25 @@ public class MinerEventHandler implements WebSocketListener{
 		{
 			Login(s);
 		}
+		else if(s[0].equals("Get Temp"))
+		{
+			GetTemp(s);
+		}
+	}
+	
+	private void GetTemp(String[] s)
+	{
+		for(Client c : ServerState.GetState().GetClients())
+			{
+				if(c.GetState() instanceof DeviceState)
+				{
+					if(((DeviceState)c.GetState()).ID == Integer.parseInt(s[2]))
+					{
+						((ClientEventHandler)c.GetEventHandler()).SendToClient(c, s);
+						break;
+					}
+				}
+			}
 	}
 	
 	private void Login(String[] s)
