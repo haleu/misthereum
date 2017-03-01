@@ -64,10 +64,13 @@ public class UserEventHandler extends EventHandler{
 	{
 		String[] split = Message.split(",");
 		String[] s = new String[4];
-		s[0] = "Get Temp"; // Operation
-		s[1] = "null";	// User
-		s[2] = split[1];	// Device
-		s[3] = "null";	// Data
+		
+		s[0] = "Get Data";	// Data
+		s[1] = "Get Temp"; // Operation
+		s[2] = "null";	// User
+		s[3] = split[1];	// Device
+		s[4] = "null";	// Data
+		
 		SendToServer(s);
 	}
 

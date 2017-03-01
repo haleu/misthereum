@@ -51,13 +51,13 @@ public class ClientEventHandler extends EventHandler{
 	
 	@Override
 	public void NetworkMessage(String[] Message) {
-		if(Message[0].equals("Get Temp"))
+		if(Message[0].equals("Get Data") || Message[0].equals("Set Data"))
 		{
-			GetTemp(Message);
+			ForwardData(Message);
 		}
-		else if(Message[0].equals("Give Temp"))
+		else if(Message[0].equals("Give Data"))
 		{
-			GiveTemp(Message);
+			GiveData(Message);
 		}
 		else if(Message[0].equals("Device"))
 		{
@@ -69,38 +69,38 @@ public class ClientEventHandler extends EventHandler{
 		}
 	}
 	
+	private void ForwardData(String[] s)
+	{
+		s[2] = ((UserState)Owner.GetState()).Address;
+		if(s[2].equals("null"))
+		{
+			return;
+		}
+		String mm = s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4];
+		SendToMiner(mm);
+	}
+	
+	private void GiveData(String[] s)
+	{
+		for(Client c : ServerState.GetState().GetClients())
+		{
+			if(c.GetState() instanceof UserState)
+			{
+				if(((UserState)c.GetState()).Address == s[2])
+				{
+					SendToClient(c, s);
+					break;
+				}
+			}
+		}
+	}
+	
 	private void Login(String[] Message)
 	{
 		((UserState)Owner.GetState()).Password = Message[1];
 		((UserState)Owner.GetState()).Username = Message[2];
 		String mm = Message[0] + "," + Message[1] + "," + Message[2] + "," + Message[3];
 		SendToMiner(mm);
-	}
-	
-	private void GetTemp(String[] Message)
-	{
-		Message[1] = ((UserState)Owner.GetState()).Address;
-		if(Message[1].equals("null"))
-		{
-			return;
-		}
-		String mm = Message[0] + "," + Message[1] + "," + Message[2] + "," + Message[3];
-		SendToMiner(mm);
-	}
-	
-	private void GiveTemp(String[] Message)
-	{
-		for(Client c : ServerState.GetState().GetClients())
-		{
-			if(c.GetState() instanceof UserState)
-			{
-				if(((UserState)c.GetState()).Address == Message[1])
-				{
-					SendToClient(c, Message);
-					break;
-				}
-			}
-		}
 	}
 	
 }

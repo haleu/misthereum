@@ -81,19 +81,23 @@ public class MinerEventHandler implements WebSocketListener{
 		{
 			Login(s);
 		}
-		else if(s[0].equals("Get Temp"))
+		else if(s[1].equals("Get Data"))
 		{
-			GetTemp(s);
+			ForwardData(s);
+		}
+		else if(s[1].equals("Set Data"))
+		{
+			ForwardData(s);
 		}
 	}
 	
-	private void GetTemp(String[] s)
+	private void ForwardData(String[] s)
 	{
 		for(Client c : ServerState.GetState().GetClients())
 			{
 				if(c.GetState() instanceof DeviceState)
 				{
-					if(((DeviceState)c.GetState()).ID == Integer.parseInt(s[2]))
+					if(((DeviceState)c.GetState()).ID == Integer.parseInt(s[3]))
 					{
 						((ClientEventHandler)c.GetEventHandler()).SendToClient(c, s);
 						break;
