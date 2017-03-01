@@ -89,6 +89,10 @@ public class MinerEventHandler implements WebSocketListener{
 		{
 			ForwardData(s);
 		}
+		else if(s[0].equals("Get Devices"))
+		{
+			GetDevices(s);
+		}
 	}
 	
 	private void ForwardData(String[] s)
@@ -104,6 +108,21 @@ public class MinerEventHandler implements WebSocketListener{
 					}
 				}
 			}
+	}
+	
+	private void GetDevices(String[] s)
+	{
+		for(Client c : ServerState.GetState().GetClients())
+		{
+			if(c.GetState() instanceof UserState)
+			{
+				if(((UserState)c.GetState()).Address.equals(s[1]))
+				{
+					((ClientEventHandler)c.GetEventHandler()).SendToClient(c, s);
+					break;
+				}
+			}
+		}
 	}
 	
 	private void Login(String[] s)

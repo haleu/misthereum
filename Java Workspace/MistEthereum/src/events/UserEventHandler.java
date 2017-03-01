@@ -14,6 +14,11 @@ public class UserEventHandler extends EventHandler{
 		{
 			System.out.println("Temperature of device: " + Message[3] + " is: " + Message[4]);
 		}
+		if(Message[0].equals("Get Devices"))
+		{
+			String[] s = Message[2].split("-");
+			ClientState.GetState().DeviceModel.addElement("Device: "+ s[0] + " " + s[1]);
+		}
 	}
 	
 	public void SendToServer(String[] Message)
@@ -47,7 +52,17 @@ public class UserEventHandler extends EventHandler{
 		}else if(split[0].equals("Login"))
 		{
 			Login(split);
+		}else if(split[0].equals("Get Devices"))
+		{
+			ClientState.GetState().DeviceModel.clear();
+			GetDevices(split);
 		}
+	}
+	
+	private void GetDevices(String[] s)
+	{
+		s[0] = "Get Devices";
+		s[1] = "null"; // Address
 	}
 	
 	private void Login(String[] Message)

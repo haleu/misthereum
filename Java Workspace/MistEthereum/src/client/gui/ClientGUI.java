@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ public class ClientGUI implements Observer{
 	private JTextField IPText = new JTextField("130.240.93.205");
 	private JTextField PortText = new JTextField("1234");
 	private JTextField CommandText = new JTextField("Input Command");
+	private DefaultListModel<String> DeviceModel = new DefaultListModel<String>();
 	private JList<String> Devices = new JList<String>();
 	private JLabel IPLabel = new JLabel("IP");
 	private JLabel PortLabel = new JLabel("Port");
@@ -59,6 +61,8 @@ public class ClientGUI implements Observer{
 					((UserEventHandler)State.GetEventHandler()).ButtonMessage(s);;
 			}
 		});
+		
+		Devices.setModel(DeviceModel);
 		
 		JFrame frame = new JFrame("User");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

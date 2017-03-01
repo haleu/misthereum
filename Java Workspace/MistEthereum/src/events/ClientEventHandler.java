@@ -67,6 +67,10 @@ public class ClientEventHandler extends EventHandler{
 		{
 			Login(Message);
 		}
+		else if(Message[0].equals("Get Devices"))
+		{
+			GetDevices(Message);
+		}
 	}
 	
 	private void ForwardData(String[] s)
@@ -93,6 +97,13 @@ public class ClientEventHandler extends EventHandler{
 				}
 			}
 		}
+	}
+	
+	private void GetDevices(String[] s)
+	{
+		s[1] = ((UserState)Owner.GetState()).Address;
+		String mm = s[0] + "," + s[1];
+		SendToMiner(mm);
 	}
 	
 	private void Login(String[] Message)

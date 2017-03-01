@@ -2,6 +2,9 @@ package client.data;
 
 import java.util.Observable;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 import client.network.ClientNetwork;
 import events.UserEventHandler;
 import events.EventHandler;
@@ -11,6 +14,8 @@ public class ClientState extends Observable{
 	private static ClientState State;
 	private ClientNetwork Network;
 	private EventHandler EventHandler;
+	
+	public DefaultListModel<String> DeviceModel = new DefaultListModel<String>();
 
 	public ClientState()
 	{
