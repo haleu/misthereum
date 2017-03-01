@@ -72,10 +72,10 @@ public class ClientEventHandler extends EventHandler{
 	private void ForwardData(String[] s)
 	{
 		s[2] = ((UserState)Owner.GetState()).Address;
-//		if(s[2].equals("null"))
-//		{
-//			return;
-//		}
+		if(s[2].equals("null"))
+		{
+			return;
+		}
 		String mm = s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4];
 		SendToMiner(mm);
 	}
