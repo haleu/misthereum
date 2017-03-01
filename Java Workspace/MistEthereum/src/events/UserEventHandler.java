@@ -63,7 +63,7 @@ public class UserEventHandler extends EventHandler{
 	private void GetTemp(String Message)
 	{
 		String[] split = Message.split(",");
-		String[] s = new String[4];
+		String[] s = new String[5];
 		
 		s[0] = "Get Data";	// Data
 		s[1] = "Get Temp"; // Operation
