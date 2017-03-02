@@ -63,7 +63,7 @@ public class UserEventHandler extends EventHandler{
 		String[] s2 = new String[2];
 		s2[0] = "Get Devices";
 		s2[1] = "null"; // Address
-		SendToServer(s);
+		SendToServer(s2);
 	}
 	
 	private void Login(String[] Message)
