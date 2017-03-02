@@ -15,11 +15,21 @@ public class ClientState extends Observable{
 	private ClientNetwork Network;
 	private EventHandler EventHandler;
 	
-	public DefaultListModel<String> DeviceModel = new DefaultListModel<String>();
+	private DefaultListModel<String> DeviceModel = null;
 
 	public ClientState()
 	{
 		EventHandler = new UserEventHandler();
+	}
+	
+	public void SetDeviceModel(DefaultListModel<String> DeviceModel)
+	{
+		this.DeviceModel = DeviceModel;
+	}
+	
+	public DefaultListModel<String> GetDeviceModel()
+	{
+		return DeviceModel;
 	}
 	
 	public EventHandler GetEventHandler()

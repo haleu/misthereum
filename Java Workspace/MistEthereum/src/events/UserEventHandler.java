@@ -16,8 +16,7 @@ public class UserEventHandler extends EventHandler{
 		}
 		if(Message[0].equals("Get Devices"))
 		{
-			String[] s = Message[2].split("-");
-			ClientState.GetState().DeviceModel.addElement("Device: "+ s[0] + " " + s[1]);
+			ClientState.GetState().GetDeviceModel().addElement("Device: "+ Message[2]);
 		}
 	}
 	
@@ -54,7 +53,7 @@ public class UserEventHandler extends EventHandler{
 			Login(split);
 		}else if(split[0].equals("Get Devices"))
 		{
-			ClientState.GetState().DeviceModel.clear();
+			ClientState.GetState().GetDeviceModel().clear();
 			GetDevices(split);
 		}
 	}
