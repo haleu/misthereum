@@ -45,14 +45,22 @@ public class ClientNetwork extends Observable implements Runnable{
 	
 	public void Disconnect(){
 		try{
-			Out.reset();
-			Out.writeObject("disconnect");
-			Out.flush();
-			Connected = false;
-			In.close();
-			In = null;
-			Out.close();
-			Out = null;
+			if(Out != null)
+			{
+				Out.reset();
+				Out.writeObject("disconnect");
+				Out.flush();
+				Out.close();
+				Out = null;
+			}
+			if(In != null)
+			{
+				In.close();
+				In = null;
+			}
+			
+			Connected = false;	
+			if(ClientSocket != null)
 			ClientSocket.close();	
 			ClientSocket = null;
 			setChanged();
@@ -77,12 +85,18 @@ public class ClientNetwork extends Observable implements Runnable{
 	public void run() {
 		while(true){
 			while (Connected) { // keep running	
-	        	if(In == null){
+	        	if(In == null && ClientSocket != null){
 	        		try{
 	        	    	In = new ObjectInputStream(ClientSocket.getInputStream());
 	        	    	System.out.println("input stream for client created");
 	        	    }catch(IOException e){
+	        	    	if(ClientSocket == null) break;
 	        	    	System.out.println("Could not get input stream from " + ClientSocket.toString());
+	        	    	try {
+	    					Thread.sleep(5000);
+	    				} catch (InterruptedException e1) {
+	    					e1.printStackTrace();
+	    				}
 	        	    }
 	        	}
 	        	if(In != null){

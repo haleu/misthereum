@@ -65,7 +65,7 @@ public class ClientGUI implements Observer{
 						String[] t1 = DeviceID.split(" ");
 						t1 = t1[1].split("-");
 						DeviceID = t1[0];
-					}
+					}else DeviceID = "null";
 					((UserEventHandler)State.GetEventHandler()).ButtonMessage(s + "," + DeviceID);;
 			}
 		});

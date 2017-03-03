@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import events.DeviceEventHandler;
 import events.EventHandler;
 import server.data.ClientState;
+import server.data.ServerState;
 import server.data.UserState;
 import events.ClientEventHandler;
 
@@ -60,44 +62,68 @@ public class Client extends Thread{
 		return Output;
 	}
 	
+	public void Disconnect()
+	{
+		Connected = false;
+		ClientSocket = null;
+		State = null;
+		Output = null;
+		Input = null;
+		ArrayList<Client> cl = ServerState.GetState().GetClients();
+		for(int i = 0; i < cl.size(); i++)
+		{
+			if(cl.get(i) == this)
+			{
+				cl.remove(i);
+			}
+		}
+	}
+	
 	public void run()
 	{
-		while(true)
+		while(Connected)
 		{
+			int i = 0;
 			while(Input == null){
+				
 				try{
 	    			Input = new ObjectInputStream(ClientSocket.getInputStream());
 	    		}catch(IOException e){
+	    			if(i > 4)
+	    			{
+	    				System.out.println("Client timed out. Disconnecting");
+	    				Disconnect();
+	    				break;
+	    			}
 	    			System.out.println("Could not get input stream for " + ClientSocket.toString());
-	    		}
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			} 
-			while(Connected)
-			{			
-				try {
-					String[] s = (String[])Input.readObject();
-					if(EventHandler == null)
-					{
-						SetEventHandler(new ClientEventHandler(this));
-					}
-					if(State == null){
-						SetState(new UserState());
-					}
-					EventHandler.NetworkMessage(s);
-					
-				} catch (IOException | ClassNotFoundException e) {
-					e.printStackTrace();
-					Input = null;
-					try {
-						Thread.sleep(16);
+	    			i++;
+	    			try {
+						Thread.sleep(5000);
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
-					}			
+					}
+	    		}
+			} 
+			if(!Connected) break;
+			try {
+				String[] s = (String[])Input.readObject();
+				if(EventHandler == null)
+				{
+					SetEventHandler(new ClientEventHandler(this));
 				}
+				if(State == null){
+					SetState(new UserState());
+				}
+				EventHandler.NetworkMessage(s);
+				
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+				Input = null;
+				try {
+					Thread.sleep(16);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}			
 			}
 			try {
 				Thread.sleep(16);
@@ -105,6 +131,7 @@ public class Client extends Thread{
 				e1.printStackTrace();
 			}
 		}
+		Disconnect();
 	}
 	
 }
