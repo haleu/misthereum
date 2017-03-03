@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="scripts.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+	<body>
+		<div class="content">
+			<div id="account" style="float:right">
+			</div>
+      			<div id="message" style="display:none">
+				This Browser does not support Ethereum apps.
+      			</div>
+			<script>
+		function registerAccount(accName, accPassword) {
+	
+			$.post(
+				'Register.php',
+				{
+					accName : accName,
+					accPassword : accPassword
+				},
+				function(returnStr){
+					document.getElementById("resultText").innerHTML = returnStr;
+				});
+		}
+
+		function getKey(accName, accPassword) {
+	
+			$.post(
+				'GetKey.php',
+				{
+					accName : accName,
+					accPassword : accPassword
+				},
+				function(key){
+					// Do things with the key here
+					document.getElementById("resultText").innerHTML = "Key: "+key;
+				});
+		}
+		</script>
+
+		<div>
+		<form>
+		Name: <input type="text" name="accNameInput" value=""><br>
+		Password: <input type="text" name="accPassInput" value=""><br>
+		<input type="button" value="Register Account" onClick="registerAccount(accNameInput.value, accPassInput.value)">
+		</form>
+		</div>
+
+		<div>
+		<form>
+		Name: <input type="text" name="accNameInput" value=""><br>
+		Password: <input type="text" name="accPassInput" value=""><br>
+		<input type="button" value="Get Key" onClick="getKey(accNameInput.value, accPassInput.value)">
+		</form>
+		</div>
+
+		<div id="resultText">
+		</div>
+			</div>
+			<div id=devicelist>
+			</div>
+      			<div class="Policy-check">
+				<input id="deviceIndex" type="text" placeholder="device index" >
+				<input id="addressPerson" type="text" placeholder="address" >
+      			<input id="checkPolicy-btn" type="button" value="Check policy">
+			</div>
+			<div class="Policy-set">
+				<input id="deviceIndex-set" type="text" placeholder="device index" >
+				<input id="addressPerson-set" type="text" placeholder="address" >
+				<input id="read-checkbox" type="checkbox">read
+				<input id="write-checkbox" type="checkbox">write
+      			<input id="setPolicy-btn" type="button" value="Set policy">
+			</div>
+			<div class="Policy-remove">
+				<input id="deviceIndex-PolRem" type="text" placeholder="device index" >
+				<input id="addressPerson-PolRem" type="text" placeholder="address" >
+				<input id="removePolicy-btn" type="button" value="Remove policy(NYI)">
+			</div>
+			<div class="addDevice">
+				<input id="deviceName" type="text" placeholder="Device name" >
+				<input id="addDevice-btn" type="button" value="Add Device">
+			</div>
+			<div id="status">
+			</div>
+			<div id="mining-status">
+			</div>
+
+		<script type="text/javascript">
+		function autorun(){ init(); }
+
+		if (document.addEventListener) document.addEventListener("DOMContentLoaded", autorun, false);
+		else if (document.attachEvent) document.attachEvent("onreadystatechange", autorun);
+		else window.onload = autorun;
+	
+		</script>
+	</body>
+</html>
