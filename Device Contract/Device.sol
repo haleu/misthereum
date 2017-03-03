@@ -16,7 +16,6 @@ contract MyDevices is mortal
 
     Device[] public DeviceList;
     uint ID = 0;
-    Transaction[] public Transactions;
 
     function MyDevices() public
     {
@@ -55,11 +54,11 @@ contract MyDevices is mortal
     {
         l = DeviceList.length;
     }
-/*    function GetPoliciesListLength(uint DeviceIndex) constant returns (uint l)
+    function GetPoliciesListLength(uint DeviceIndex) constant returns (uint l)
     {
         l = DeviceList[DeviceIndex].GetPoliciesLength();
     }
-*/
+
     function GetPolicyReadWrite(address Person, uint DeviceIndex) constant returns (bool Read,bool Write, bool Success)
     {
         Read = false;
@@ -125,29 +124,6 @@ contract MyDevices is mortal
         ID++;
         adddevice(true, msg.sender);
     }
-
-    function AddTransaction(bytes32 Name, uint ID, address Signature)
-    {
-        Transactions.push(new Transaction(Name, ID, Signature));
-    }
-
-    function GetTransaction(uint x) constant returns (string name, uint id, address sig, bool Success)
-    {
-        bytes32 n;
-        if(x < Transactions.length)
-        {
-            (n, id, sig) = Transactions[x].GetTransaction();
-            name = Bytes32ToString(n);
-        }else
-        {
-            Success = false;
-        }
-    }
-
-    function GetTransactionLength() constant returns (uint i)
-    {
-        i = Transactions.length;
-    }
     
     function Bytes32ToString(bytes32 x) private constant returns (string) {
         bytes memory bytesString = new bytes(32);
@@ -165,28 +141,11 @@ contract MyDevices is mortal
             }
         return string(bytesStringTrimmed);
     }
-}
-
-contract Transaction
-{
-    bytes32 DeviceName;
-    uint DeviceID;
-    address Signature;
-
-    function Transaction(bytes32 name, uint id, address sig) public
+    event linkaccount(string key, address user);
+    function LinkAccount(string key)
     {
-        DeviceName = name;
-        DeviceID = id;
-        Signature = sig;
+        linkaccount(key, msg.sender);
     }
-
-    function GetTransaction()constant returns (bytes32 name, uint id, address sig)
-    {
-        name = DeviceName;
-        id = DeviceID;
-        Signature = sig;
-    }
-
 }
 
 contract Device
