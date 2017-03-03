@@ -18,6 +18,10 @@ public class UserEventHandler extends EventHandler{
 		{
 			ClientState.GetState().GetDeviceModel().addElement("Device: "+ Message[2]);
 		}
+		if(Message[0].equals("Operation error"))
+		{
+			System.out.println("Operation error: " + Message[1] + ": " + Message[2]);
+		}
 	}
 	
 	public void SendToServer(String[] Message)

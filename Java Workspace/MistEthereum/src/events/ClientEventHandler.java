@@ -80,8 +80,27 @@ public class ClientEventHandler extends EventHandler{
 		{
 			return;
 		}
-		String mm = s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4];
-		SendToMiner(mm);
+		
+		for(Client c : ServerState.GetState().GetClients())
+		{
+			if(c.GetState() instanceof DeviceState)
+			{
+				if(((DeviceState)c.GetState()).ID == Integer.parseInt(s[3]))
+				{
+					String mm = s[0] + "," + s[1] + "," + s[2] + "," + s[3] + "," + s[4];
+					SendToMiner(mm);
+					return;
+				}
+			}
+		}
+		
+		String[] ms = new String[3];
+		ms[0] = "Operation error";
+		ms[1] = "Device not connected";
+		ms[2] = s[3];
+		
+		SendToClient(Owner, ms);
+		
 	}
 	
 	private void GiveData(String[] s)
