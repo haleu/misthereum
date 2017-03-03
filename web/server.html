@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="serverscripts.js"></script>
+</head>
+	<body>
+		<div class="content">
+			<div id="account" style="float:right">
+			</div>
+      			<div id="message" style="display:none">
+				This Browser does not support Ethereum apps.
+      			</div>
+			<div id="status">
+			</div>
+			<div id="mining-status">
+			</div>
+		</div>
+		<script type="text/javascript">
+		function autorun(){ init(); }
+
+		if (document.addEventListener) document.addEventListener("DOMContentLoaded", autorun, false);
+		else if (document.attachEvent) document.attachEvent("onreadystatechange", autorun);
+		else window.onload = autorun;
+	
+		</script>
+	</body>
+</html>
