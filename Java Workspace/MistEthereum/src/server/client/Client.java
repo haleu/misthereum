@@ -117,7 +117,7 @@ public class Client extends Thread{
 				EventHandler.NetworkMessage(s);
 				
 			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
+				System.out.println("Input stream cut off for: " + ClientSocket.toString());
 				Input = null;
 				try {
 					Thread.sleep(16);

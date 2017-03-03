@@ -139,6 +139,7 @@ public class MinerEventHandler implements WebSocketListener{
 				{
 					state.Address = s[3];
 				}
+				c.GetEventHandler().SendToClient(c, s);
 			}
 		}
 	}
