@@ -39,7 +39,17 @@ public class ClientEventHandler extends EventHandler{
 	
 	public void SendToMiner(String Message)
 	{
+		
 		Session session = MinerEventHandler.GetMiner();
+		if(session == null)
+		{
+			String[] ms = new String[3];
+			ms[0] = "Operation error";
+			ms[1] = "Miner is not connected to the server, please contact support";
+			ms[2] = "";
+			SendToClient(Owner, ms);
+			return;
+		}
 		try {
 			session.getRemote().sendString(Message);
 		} catch (IOException e) {
@@ -96,8 +106,7 @@ public class ClientEventHandler extends EventHandler{
 		
 		String[] ms = new String[3];
 		ms[0] = "Operation error";
-		ms[1] = "Device not connected";
-		ms[2] = s[3];
+		ms[1] = "Device not connected: " + s[3];
 		
 		SendToClient(Owner, ms);
 		

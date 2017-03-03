@@ -20,7 +20,7 @@ public class UserEventHandler extends EventHandler{
 		}
 		if(Message[0].equals("Operation error"))
 		{
-			System.out.println("Operation error: " + Message[1] + ": " + Message[2]);
+			System.out.println("Operation error: " + Message[1]);
 		}
 	}
 	

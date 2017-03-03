@@ -71,7 +71,7 @@ public class Client extends Thread{
 	    			System.out.println("Could not get input stream for " + ClientSocket.toString());
 	    		}
 				try {
-					Thread.sleep(16);
+					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -91,6 +91,7 @@ public class Client extends Thread{
 					
 				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
+					Input = null;
 					try {
 						Thread.sleep(16);
 					} catch (InterruptedException e1) {
