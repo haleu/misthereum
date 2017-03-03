@@ -72,6 +72,7 @@ public class ClientEventHandler extends EventHandler{
 		else if(Message[0].equals("Device"))
 		{
 			Owner.SetState(new DeviceState());
+			((DeviceState)Owner.GetState()).ID = Integer.parseInt(Message[1]);
 		}
 		else if(Message[0].equals("Login"))
 		{
