@@ -31,7 +31,7 @@ public class ClientGUI implements Observer{
 	private final JButton DisconnectButton = new JButton("Disconnect");
 	private final JButton CommandButton = new JButton("Send");
 	private JLabel MessageLabel = new JLabel("Welcome");
-	private JTextField IPText = new JTextField("130.240.94.101");
+	private JTextField IPText = new JTextField("130.240.92.168");
 	private JTextField PortText = new JTextField("1234");
 	private JTextField CommandText = new JTextField("Input Command");
 	private DefaultListModel<String> DeviceModel = new DefaultListModel<String>();
@@ -58,7 +58,15 @@ public class ClientGUI implements Observer{
 			public void actionPerformed(ActionEvent e) {
 					String s;
 					s = CommandText.getText();
-					((UserEventHandler)State.GetEventHandler()).ButtonMessage(s);;
+					
+					String DeviceID = Devices.getSelectedValue();
+					if(DeviceID != null)
+					{
+						String[] t1 = DeviceID.split(" ");
+						t1 = t1[1].split("-");
+						DeviceID = t1[0];
+					}
+					((UserEventHandler)State.GetEventHandler()).ButtonMessage(s + "," + DeviceID);;
 			}
 		});
 		

@@ -108,8 +108,8 @@ public class ClientEventHandler extends EventHandler{
 	
 	private void Login(String[] Message)
 	{
-		((UserState)Owner.GetState()).Password = Message[1];
-		((UserState)Owner.GetState()).Username = Message[2];
+		((UserState)Owner.GetState()).Username= Message[1];
+		((UserState)Owner.GetState()).Password = Message[2];
 		String mm = Message[0] + "," + Message[1] + "," + Message[2] + "," + Message[3];
 		SendToMiner(mm);
 	}

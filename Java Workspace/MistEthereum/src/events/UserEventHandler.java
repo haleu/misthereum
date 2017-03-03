@@ -69,6 +69,7 @@ public class UserEventHandler extends EventHandler{
 	private void Login(String[] Message)
 	{
 		String[] s = new String[4];
+		
 		s[0] = Message[0];
 		s[1] = Message[1];
 		s[2] = Message[2];
