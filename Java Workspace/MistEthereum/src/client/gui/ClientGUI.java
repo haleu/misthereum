@@ -38,11 +38,15 @@ public class ClientGUI implements Observer{
 	private JList<String> Devices = new JList<String>();
 	private JLabel IPLabel = new JLabel("IP");
 	private JLabel PortLabel = new JLabel("Port");
+	private JLabel Username = new JLabel("Username: ");
+	private JLabel Address = new JLabel("Address: ");
 	
 	public ClientGUI(ClientNetwork Network, ClientState State)
 	{
 		this.Network = Network;
 		this.State = State;
+		
+		State.addObserver(this);
 		
 		ConnectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +96,7 @@ public class ClientGUI implements Observer{
 		
 		panel2.add(new JScrollPane(Devices));
 		
+		
 		JLabel l = new JLabel("IP : Port Number");
 		  
 		Dimension d1 = new Dimension(250, 20);
@@ -118,6 +123,9 @@ public class ClientGUI implements Observer{
 		frame.add(panel4);
 		frame.add(panel5);
 		
+		frame.add(Username);
+		frame.add(Address);
+		
 		frame.pack();
 		
 		frame.setVisible(true);
@@ -127,7 +135,8 @@ public class ClientGUI implements Observer{
 
 
 	public void update(Observable arg0, Object arg1) {
-		
+		Username.setText("Username: " + State.GetUsername());
+		Address.setText("Address: " + State.GetAddress());
 	}
 	
 }

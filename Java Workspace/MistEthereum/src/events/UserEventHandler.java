@@ -25,6 +25,12 @@ public class UserEventHandler extends EventHandler{
 		{
 			System.out.println("Operation error: " + Message[1]);
 		}
+		if(Message[0].equals("Login"))
+		{
+			ClientState state = ClientState.GetState();
+			state.SetUsername(Message[1]);
+			state.SetAddress(Message[3]);
+		}
 	}
 	
 	public void SendToServer(String[] Message)

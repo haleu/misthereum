@@ -14,6 +14,8 @@ public class ClientState extends Observable{
 	private static ClientState State;
 	private ClientNetwork Network;
 	private EventHandler EventHandler;
+	private String Username;
+	private String Address;
 	
 	private DefaultListModel<String> DeviceModel = null;
 
@@ -65,6 +67,26 @@ public class ClientState extends Observable{
 		{
 			return null;
 		}
+	}
+
+	public String GetUsername() {
+		return Username;
+	}
+
+	public void SetUsername(String username) {
+		Username = username;
+		setChanged();
+		notifyObservers();
+	}
+
+	public String GetAddress() {
+		return Address;
+	}
+
+	public void SetAddress(String address) {
+		Address = address;
+		setChanged();
+		notifyObservers();
 	}
 	
 }
