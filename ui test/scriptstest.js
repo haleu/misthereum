@@ -113,7 +113,7 @@ function init(){
 						newPolicy.setAttribute('data-address', policy[0]);
 						newPolicy.setAttribute('data-read',policy[1]);
 						newPolicy.setAttribute('data-write',policy[2]);
-						newPolicy.setAttribute('data-deviceindex', i);
+						newPolicy.setAttribute('data-deviceindex', deviceList[i].id);
 						newPolicy.innerHTML = "<div class='info'><p class='address'>Address: "+policy[0]+"</p></div>";
 						/*
 						* Add checkboxes for read/write and update button/remove policy button
