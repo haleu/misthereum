@@ -53,7 +53,7 @@ public class UserEventHandler extends EventHandler{
 		{
 			String[] s = new String[4];
 			s[0] = "Device";
-			s[1] = "null";
+			s[1] = split[1];
 			s[2] = "null";
 			s[3] = "null";
 			ClientState.GetState().SetEventHandler(new DeviceEventHandler());

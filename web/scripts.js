@@ -43,7 +43,10 @@ function init(){
 			var address = document.getElementById("addressPerson-PolRem").value;
 			removePolicy(address, index);
 		});
-		//document.getElementById("devicelist").innerHTML = outputDeviceList();
+		document.getElementById("linkBtn").addEventListener("click", function() {
+			var key = document.getElementById("linkKey").value;
+			linkAccount(key);
+		});
 		outputDeviceList();
 		document.getElementById("account").innerHTML = web3.eth.accounts[0];
 	}
@@ -158,19 +161,21 @@ function init(){
 		return deviceList;
 		
 	}
-
-	/*function outputDeviceList(){
-		var deviceList = [];
-		var length = myDevices.GetDeviceListLength();
-		var output = "";
-		if (length > 0){
-			deviceList = getDeviceList();
-			for (var i=0; i<deviceList.length; i++){
-				output += "<br>"+deviceList[i].id+" - "+deviceList[i].name;
+	function linkAccount(key){
+		myDevices.LinkAccount(key, {from: web3.eth.accounts[0]});
+		document.getElementById("mining-status").innerHTML = "waiting for new block...";
+		var linkaccountEvent = myDevices.linkaccount();
+		linkaccountEvent.watch(function(err, result) {
+			if (err) {
+				console.log(err)
+				return;
 			}
-		}
-		return output;
-	}*/
+			else{
+				document.getElementById("mining-status").innerHTML = "mining complete";
+				linkaccountEvent.stopWatching();
+			}
+		})
+	}
 	function outputDeviceList(){
 		var deviceList = [];
 		var length = myDevices.GetDeviceListLength();

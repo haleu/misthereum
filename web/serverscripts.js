@@ -58,7 +58,15 @@ function init(){
 				return;
 			}
 			else{
-				//do stuff
+				$.post(
+					'LinkAddress.php',
+					{
+						accKey : result.args.key,
+						accAddress : result.args.user
+					},
+					function(_result){
+						document.getElementById("status").innerHTML = _result;
+				});
 				//linkaccountEvent.stopWatching();
 			}
 		})
@@ -128,12 +136,22 @@ function init(){
 				if (op == "Login"){	//login: [Login, username, password, address]
 					var username = message[1];
 					var password = message[2];
+					var address;
 					/*
 					* check login with database, return address (ethereum address)
 					*/
-					var address = "0xa45d59b32510907d0ba3d7ced0a40274e7a9bfaa"; //test
-					ws.send(op+","+username+","+password+","+address);
-					console.log("Sent message: "+op+","+username+","+password+","+address);
+					$.post(
+						'GetAddress.php',
+						{
+							accName : username,
+							accPassword : password
+						},
+						function(_address){
+							address = _address;
+							document.getElementById("status").innerHTML = "Address: "+_address;
+							ws.send(op+","+username+","+password+","+address);
+							console.log("Sent message: "+op+","+username+","+password+","+address);
+					});
 				}
 
 			};

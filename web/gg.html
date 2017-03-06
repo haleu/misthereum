@@ -36,25 +36,29 @@
 				},
 				function(key){
 					// Do things with the key here
-					document.getElementById("resultText").innerHTML = "Key: "+key;
+					document.getElementById("linkKey").value = key;
 				});
 		}
 		</script>
 
 		<div>
-		<form>
-		Name: <input type="text" name="accNameInput" value=""><br>
-		Password: <input type="text" name="accPassInput" value=""><br>
-		<input type="button" value="Register Account" onClick="registerAccount(accNameInput.value, accPassInput.value)">
-		</form>
+			<form>
+				Name: <input type="text" name="accNameInput" value=""><br>
+				Password: <input type="text" name="accPassInput" value=""><br>
+				<input type="button" value="Register Account" onClick="registerAccount(accNameInput.value, accPassInput.value)">
+			</form>
 		</div>
 
 		<div>
-		<form>
-		Name: <input type="text" name="accNameInput" value=""><br>
-		Password: <input type="text" name="accPassInput" value=""><br>
-		<input type="button" value="Get Key" onClick="getKey(accNameInput.value, accPassInput.value)">
-		</form>
+			<form>
+				Name: <input type="text" name="accNameInput" value=""><br>
+				Password: <input type="text" name="accPassInput" value=""><br>
+				<input type="button" value="Get Key" onClick="getKey(accNameInput.value, accPassInput.value)">
+			</form>
+		</div>
+		<div>
+			<input id="linkKey" type="text" placeholder="key">
+			<input id="linkBtn" type="button" value="Link Account">
 		</div>
 
 		<div id="resultText">
