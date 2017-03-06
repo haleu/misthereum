@@ -75,7 +75,7 @@ function init(){
 			deviceList.push({id: 2, name: "device3"});
 			for (var i=0; i<deviceList.length; i++){
 				//create div for each device
-				var newDevice = document.createElement("div");
+				var newDevice = document.createElement("li");
 				newDevice.id = "device-"+i;
 				newDevice.className = "device";
 				newDevice.setAttribute('data-name', deviceList[i].name);
@@ -83,6 +83,21 @@ function init(){
 				newDevice.innerHTML = "<div class='info'><p class='name'>Device: "+deviceList[i].name+"</p><p class='id'>Id: "+deviceList[i].id+"</p></div>";
 				document.getElementById("devicelist").appendChild(newDevice);
 
+				var newDeviceSelect = document.createElement("li");
+				newDeviceSelect.id = "select-device-"+i;
+				newDeviceSelect.classname = "select-device";
+				newDeviceSelect.setAttribute('target-device-id', "device-"+i);
+				newDeviceSelect.innerHTML = "<a href='#'>Device: "+deviceList[i].name+"  |  Id: "+deviceList[i].id+"</a>";
+				newDeviceSelect.addEventListener("click", function(){
+					var targetId = this.getAttribute('target-device-id');
+					var hideDevices = document.getElementsByClassName("device")
+					for(var l=0;l<hideDevices.length;l++) {
+						hideDevices[l].style.display = "none";
+					}
+					document.getElementById(targetId).style.display = 'block';
+				});
+				document.getElementById("selectdevice").appendChild(newDeviceSelect);
+				
 				//create div for each policy
 				var policyContainer = document.createElement("div");
 				policyContainer.id =newDevice.id+"-policyContainer";
@@ -111,16 +126,18 @@ function init(){
 						readBox.id = newPolicy.id+"-readbox";
 						if (policy[1]){ readBox.checked = true; }
 						
-						var readP = document.createElement("p");
+						var readP = document.createElement("label");
 						readP.innerHTML = "Read: ";
+                                                readP.appendChild(readBox);
 
 						var writeBox = document.createElement("input");
 						writeBox.type = "checkbox";
 						writeBox.id = newPolicy.id+"-writebox";
 						if (policy[2]){ writeBox.checked = true; }
 
-						var writeP = document.createElement("p");
+						var writeP = document.createElement("label");
 						writeP.innerHTML = "Write: ";
+                                                writeP.appendChild(writeBox);
 
 						var updateBtn = document.createElement("input");
 						updateBtn.type = "button";
@@ -135,9 +152,9 @@ function init(){
 						policyContainer.appendChild(newPolicy);
 						newPolicy.appendChild(policyEdit);
 						policyEdit.appendChild(readP);
-						policyEdit.appendChild(readBox);
+						//policyEdit.appendChild(readBox);
 						policyEdit.appendChild(writeP);
-						policyEdit.appendChild(writeBox);
+						//policyEdit.appendChild(writeBox);
 						policyEdit.appendChild(updateBtn);
 						policyEdit.appendChild(removeBtn);
 						document.getElementById(newPolicy.id+"-ubtn").addEventListener("click", function() {
@@ -165,6 +182,4 @@ function init(){
 				
 			}
 		}
-	}
-	
-	
+	}  
