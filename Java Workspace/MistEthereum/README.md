@@ -1,6 +1,6 @@
 ## Installing Jetty
 
-Download the latest version of Jetty. You should then have a single .jar file.
+Download Jetty version 9.4.1.v20170120. Code might need to be updated if other version is used. You should then have a single .jar file.
 In eclipse:
 Window->Preferences->Java->Installed JREs-> Select jre and press edit-> Add External JARs-> "Your Jetty.jar location"
 
