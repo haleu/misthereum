@@ -22,4 +22,4 @@ After deploying the contact, update scripts.js and serverscripts.js with the con
 
     var contractAddress = '<address>';
     
-The ethereum node must be running in order to use the web UI. Make sure your browser supports web3, we use [Mist].(https://github.com/ethereum/mist)
+The ethereum node must be running in order to use the web UI. Make sure your browser supports web3, we use [Mist](https://github.com/ethereum/mist).
