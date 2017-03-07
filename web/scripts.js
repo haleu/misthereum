@@ -24,24 +24,9 @@ function init(){
 		//UI init
 		document.getElementById("status").innerHTML = "contract loaded";
 		document.getElementById("checkPolicy-btn").addEventListener("click", outputPolicyCheck);
-		document.getElementById("setPolicy-btn").addEventListener("click", function() {
-			var address = document.getElementById("addressPerson-set").value;
-			var index = document.getElementById("deviceIndex-set").value;
-			var read = false;
-			var write = false;
-			if (document.getElementById("read-checkbox").checked){
-				read = true;
-			}
-			if (document.getElementById("write-checkbox").checked){
-				write = true;
-			}
-			setPolicy(address, index, read, write);
-		});
-		document.getElementById("addDevice-btn").addEventListener("click", addDevice);
-		document.getElementById("removePolicy-btn").addEventListener("click", function() {
-			var index = document.getElementById("deviceIndex-PolRem").value;
-			var address = document.getElementById("addressPerson-PolRem").value;
-			removePolicy(address, index);
+		document.getElementById("addDevice-btn").addEventListener("click", function() {
+			var name = document.getElementById("device-name-input").value;
+			addDevice(name);
 		});
 		document.getElementById("linkBtn").addEventListener("click", function() {
 			var key = document.getElementById("linkKey").value;
@@ -51,8 +36,7 @@ function init(){
 		document.getElementById("account").innerHTML = web3.eth.accounts[0];
 	}
 
-	function addDevice(){
-		var name = document.getElementById("deviceName").value;
+	function addDevice(name){
 		myDevices.AddDevice(name, {from: web3.eth.accounts[0]});
 		document.getElementById("mining-status").innerHTML = "waiting for new block...";
 		var addDevEvent = myDevices.adddevice({_from: web3.eth.accounts[0]});
@@ -187,19 +171,66 @@ function init(){
 			deviceList = getDeviceList(web3.eth.accounts[0]);
 			for (var i=0; i<deviceList.length; i++){
 				//create div for each device
-				var newDevice = document.createElement("div");
-				newDevice.id = "device-"+deviceList[i].id;
+				var newDevice = document.createElement("li");
+				newDevice.id = "device-"+i;
 				newDevice.className = "device";
 				newDevice.setAttribute('data-name', deviceList[i].name);
 				newDevice.setAttribute('data-id', deviceList[i].id);
 				newDevice.innerHTML = "<div class='info'><p class='name'>Device: "+deviceList[i].name+"</p><p class='id'>Id: "+deviceList[i].id+"</p></div>";
-				document.getElementById("devicelist").appendChild(newDevice);
 
+				var policyAdd = document.createElement("div");
+				policyAdd.className = "input-group";
+
+				var inputPolicy = document.createElement("input");
+				inputPolicy.type = "text";
+				inputPolicy.className = "form-control";
+				inputPolicy.placeholder = "Address";
+				inputPolicy.id = "inputPolicy"+deviceList[i].id;
+				
+				var inputSpan = document.createElement("span");
+				inputSpan.className = "input-group-btn";
+
+				var inputBtn = document.createElement("button");
+				inputBtn.className = "btn btn-default";
+				inputBtn.type = "button";
+				inputBtn.innerHTML = "Add Policy";
+				inputBtn.setAttribute('data-id', deviceList[i].id);
+
+				document.getElementById("devicelist").appendChild(newDevice);
+				newDevice.appendChild(policyAdd);
+				policyAdd.appendChild(inputPolicy);
+				policyAdd.appendChild(inputSpan);
+				inputSpan.appendChild(inputBtn);
+
+				inputBtn.addEventListener("click", function(){
+					var id = this.getAttribute('data-id');
+					var inputbox = document.getElementById("inputPolicy"+id);
+					var address = inputbox.value;
+					console.log(address);
+					console.log(id);
+					setPolicy(address, id, false, false);
+				});
+				
+				
+				var newDeviceSelect = document.createElement("li");
+				newDeviceSelect.id = "select-device-"+i;
+				newDeviceSelect.classname = "select-device";
+				newDeviceSelect.setAttribute('target-device-id', "device-"+i);
+				newDeviceSelect.innerHTML = "<a href='#'>Device: "+deviceList[i].name+"  |  Id: "+deviceList[i].id+"</a>";
+				newDeviceSelect.addEventListener("click", function(){
+					var targetId = this.getAttribute('target-device-id');
+					var hideDevices = document.getElementsByClassName("device")
+					for(var l=0;l<hideDevices.length;l++) {
+						hideDevices[l].style.display = "none";
+					}
+					document.getElementById(targetId).style.display = 'block';
+				});
+				document.getElementById("selectdevice").appendChild(newDeviceSelect);
+				
 				//create div for each policy
 				var policyContainer = document.createElement("div");
 				policyContainer.id =newDevice.id+"-policyContainer";
 				newDevice.appendChild(policyContainer);
-			
 				var policyListLength = myDevices.GetPoliciesListLength(deviceList[i].id);
 				for (var j=0; j<policyListLength; j++){
 					var policy = myDevices.GetPolicyByIndex(j, deviceList[i].id); //returns (address person, bool Read, bool Write, bool Success, uint l)
@@ -223,16 +254,18 @@ function init(){
 						readBox.id = newPolicy.id+"-readbox";
 						if (policy[1]){ readBox.checked = true; }
 						
-						var readP = document.createElement("p");
+						var readP = document.createElement("label");
 						readP.innerHTML = "Read: ";
+                        			readP.appendChild(readBox);
 
 						var writeBox = document.createElement("input");
 						writeBox.type = "checkbox";
 						writeBox.id = newPolicy.id+"-writebox";
 						if (policy[2]){ writeBox.checked = true; }
 
-						var writeP = document.createElement("p");
+						var writeP = document.createElement("label");
 						writeP.innerHTML = "Write: ";
+                        			writeP.appendChild(writeBox);
 
 						var updateBtn = document.createElement("input");
 						updateBtn.type = "button";
@@ -242,14 +275,14 @@ function init(){
 						var removeBtn = document.createElement("input");
 						removeBtn.type = "button";
 						removeBtn.id = newPolicy.id+"-rbtn";
-						removeBtn.value = "remove";
+						removeBtn.value = "remove";			
 						
 						policyContainer.appendChild(newPolicy);
 						newPolicy.appendChild(policyEdit);
 						policyEdit.appendChild(readP);
-						policyEdit.appendChild(readBox);
+						//policyEdit.appendChild(readBox);
 						policyEdit.appendChild(writeP);
-						policyEdit.appendChild(writeBox);
+						//policyEdit.appendChild(writeBox);
 						policyEdit.appendChild(updateBtn);
 						policyEdit.appendChild(removeBtn);
 						document.getElementById(newPolicy.id+"-ubtn").addEventListener("click", function() {
@@ -277,7 +310,7 @@ function init(){
 				
 			}
 		}
-	}
+	}  
 	function outputPolicyCheck(){
 		var index = document.getElementById("deviceIndex").value;
 		var address = document.getElementById("addressPerson").value;

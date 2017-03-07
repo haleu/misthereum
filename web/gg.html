@@ -1,18 +1,64 @@
 <!DOCTYPE html>
 <html>
 	<head>
+  
+  	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    
+     
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<meta charset="UTF-8">
 		<script src="scripts.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+    .policyedit label {
+        display: block;
+        font-weight: normal;
+    }
+	
+	#devicelist li {
+        display: none;
+    }
+	
+	</style>
 </head>
 	<body>
-		<div class="content">
-			<div id="account" style="float:right">
+		<nav class="navbar navbar-default">
+    <div class="container">
+		<div class="row">
+			<div class="collapse navbar-collapse" id="devices-navbar">
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+						<ul id="createAccount" class="dropdown-menu">
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Device <span class="caret"></span></a>
+						<ul id="selectdevice" class="dropdown-menu"></ul>
+					</li>
+					<div class="col-lg-3">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Name" id="device-name-input">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" id="addDevice-btn">Add Device</button>
+						</span>
+					</div>
+					</div>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				</ul>
 			</div>
-      			<div id="message" style="display:none">
-				This Browser does not support Ethereum apps.
-      			</div>
-			<script>
+		</div>
+    </div>
+</nav>
+		<script>
 		function registerAccount(accName, accPassword) {
 	
 			$.post(
@@ -40,58 +86,56 @@
 				});
 		}
 		</script>
+		<div class="content">
+			<div id="account" style="float:right">
+			</div>
+      			<div id="message" style="display:none">
+				This Browser does not support Ethereum apps.
+      			</div>
+			<div class="col-lg-4">
+				<div id=devicelist>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div id="status">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div id="mining-status">
+				</div>
+			</div>
+			
 
-		<div>
-			<form>
-				Name: <input type="text" name="accNameInput" value=""><br>
-				Password: <input type="text" name="accPassInput" value=""><br>
-				<input type="button" value="Register Account" onClick="registerAccount(accNameInput.value, accPassInput.value)">
-			</form>
-		</div>
-
-		<div>
-			<form>
-				Name: <input type="text" name="accNameInput" value=""><br>
-				Password: <input type="text" name="accPassInput" value=""><br>
-				<input type="button" value="Get Key" onClick="getKey(accNameInput.value, accPassInput.value)">
-			</form>
-		</div>
-		<div>
-			<input id="linkKey" type="text" placeholder="key">
-			<input id="linkBtn" type="button" value="Link Account">
-		</div>
-
-		<div id="resultText">
-		</div>
-			</div>
-			<div id=devicelist>
-			</div>
-      			<div class="Policy-check">
-				<input id="deviceIndex" type="text" placeholder="device index" >
-				<input id="addressPerson" type="text" placeholder="address" >
-      			<input id="checkPolicy-btn" type="button" value="Check policy">
-			</div>
-			<div class="Policy-set">
-				<input id="deviceIndex-set" type="text" placeholder="device index" >
-				<input id="addressPerson-set" type="text" placeholder="address" >
-				<input id="read-checkbox" type="checkbox">read
-				<input id="write-checkbox" type="checkbox">write
-      			<input id="setPolicy-btn" type="button" value="Set policy">
-			</div>
-			<div class="Policy-remove">
-				<input id="deviceIndex-PolRem" type="text" placeholder="device index" >
-				<input id="addressPerson-PolRem" type="text" placeholder="address" >
-				<input id="removePolicy-btn" type="button" value="Remove policy(NYI)">
-			</div>
-			<div class="addDevice">
-				<input id="deviceName" type="text" placeholder="Device name" >
-				<input id="addDevice-btn" type="button" value="Add Device">
-			</div>
-			<div id="status">
-			</div>
-			<div id="mining-status">
+			<div class="col-lg-4">
+				<form>
+					Name: <input type="text" name="accNameInput" value=""><br>
+					Password: <input type="text" name="accPassInput" value=""><br>
+					<input type="button" value="Register Account" onClick="registerAccount(accNameInput.value, accPassInput.value)">
+				</form>
 			</div>
 
+			<div class="col-lg-4">
+				<form>
+					Name: <input type="text" name="accNameInput" value=""><br>
+					Password: <input type="text" name="accPassInput" value=""><br>
+					<input type="button" value="Get Key" onClick="getKey(accNameInput.value, accPassInput.value)">
+				</form>
+			</div>
+			<div class="col-lg-4">
+				<input id="linkKey" type="text" placeholder="key">
+				<input id="linkBtn" type="button" value="Link Account">
+			</div>
+
+			<div id="resultText">
+			</div>
+			<div class="col-lg-4">
+	      			<div class="Policy-check">
+					<input id="deviceIndex" type="text" placeholder="device index" >
+					<input id="addressPerson" type="text" placeholder="address" >
+	      			<input id="checkPolicy-btn" type="button" value="Check policy">
+				</div>
+			</div>
+		</div>
 		<script type="text/javascript">
 		function autorun(){ init(); }
 
