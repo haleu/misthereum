@@ -1,6 +1,6 @@
 ## Installing Jetty
 
-Download the latest version of Jetty. You should then have a single .jar file.
+Download Jetty version 9.4.1.v20170120. Code might need to be updated if other version is used. You should then have a single .jar file.
 In eclipse:
 Window->Preferences->Java->Installed JREs-> Select jre and press edit-> Add External JARs-> "Your Jetty.jar location"
 
@@ -41,7 +41,7 @@ To test the device and policy from the miner, use the command:
 
 | Command    | Description |
 |:----------:|-------------|
-| **`Login`**,Username,Password | Sends a command to the server with Username and Password as parameters. The server will in turn send it to the Miner which will check what address the User has. It will then send a response to the server to set the address to the specific User. When policy checks will be called, the address that a User has on the Server will be sent for the check.|
+| **`Login`**`,Username,Password` | Sends a command to the server with Username and Password as parameters. The server will in turn send it to the Miner which will check what address the User has. It will then send a response to the server to set the address to the specific User. When policy checks will be called, the address that a User has on the Server will be sent for the check.|
 | **`Get Devices`** | Gets a device list from the blockchain. It's not guaranteed that the device is connected to the server. |
-| **`Device`**,id | Tells the server that the client is a device with a specific ID|
+| **`Device`**`,id` | Tells the server that the client is a device with a specific ID|
 | **`Get Temp`** | Using the selected device on the list, this command will send a data request to the device.|
