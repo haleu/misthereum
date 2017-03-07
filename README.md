@@ -18,6 +18,8 @@ or run in "dev" mode:
 ## Deploying the contract
 [Contract tutorial](https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial)
 
+We are using the Ethereum wallet(which is included in Mist) to deploy contracts.
+
 After deploying the contact, update scripts.js and serverscripts.js with the contract address.
 
     var contractAddress = '<address>';
