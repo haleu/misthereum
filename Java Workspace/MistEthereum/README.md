@@ -13,18 +13,25 @@ The different commands can be viewed in the EventHandlers classes.
 
 Command to send login
 
-  login,username,password
+    login,username,password
 
 Register as a device:
 
-  Device,id
+    Device,id
 
 To send a command to a specific device, write:
 
-  Get Devices
+    Get Devices
   
 as a User and then select a device from the list.
 
 To test the device and policy from the miner, use the command:
 
-  Get Temp
+    Get Temp
+
+## Command list
+
+| Command    | Description |
+|:----------:|-------------|
+| **`geth`** | hello |
+| `abigen` | asdf. |
