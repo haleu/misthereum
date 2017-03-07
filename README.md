@@ -10,3 +10,16 @@ Initialize the blockchain with a genesis file:
 Start the geth node:
 
     geth --datadir <dir> --rpc --rpcport "8000" --rpccorsdomain "*" --port "30303" --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 1902 --nat "any" console
+
+or run in "dev" mode:
+
+    geth --datadir <dir> --dev
+
+## Deploying the contract
+[Contract tutorial](https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial)
+
+After deploying the contact, update scripts.js and serverscripts.js with the contract address.
+
+    var contractAddress = '<address>';
+    
+The ethereum node must be running in order to use the web UI. Make sure your browser supports web3, we use [Mist].(https://github.com/ethereum/mist)
