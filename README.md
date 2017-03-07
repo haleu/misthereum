@@ -26,3 +26,11 @@ The ethereum node must be running in order to use the web UI. Make sure your bro
 
 ## Server & Client
 Refer to the [server documentation](https://github.com/jimabr/misthereum/blob/master/Java%20Workspace/MistEthereum/README.md)
+
+## Connecting Database
+Setup the database connection in the ConnectDatabase.php file.
+
+    $hostname = "hostname";
+    $username = "username";
+    $password = "password";
+    $dbname = "databasename";
