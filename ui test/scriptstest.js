@@ -80,7 +80,7 @@ function init(){
 				newDevice.className = "device";
 				newDevice.setAttribute('data-name', deviceList[i].name);
 				newDevice.setAttribute('data-id', deviceList[i].id);
-				newDevice.innerHTML = "<div class='info'><p class='name'>Device: "+deviceList[i].name+"</p><p class='id'>Id: "+deviceList[i].id+"</p></div><div class='input-group'><input type='text' class='form-control' placeholder='Name'><span class='input-group-btn'><button class='btn btn-default' type='button'>Add Policy</button></span></div>";
+				newDevice.innerHTML = "<div class='info'><p class='name'>Device: "+deviceList[i].name+"</p><p class='id'>Id: "+deviceList[i].id+"</p></div><div class='input-group'><input type='text' class='form-control' placeholder='Acount Adress'><span class='input-group-btn'><button class='btn btn-default' type='button'>Add Policy</button></span></div>";
 				document.getElementById("devicelist").appendChild(newDevice);
 				
 				var newDeviceSelect = document.createElement("li");
