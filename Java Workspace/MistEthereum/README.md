@@ -4,7 +4,7 @@ Download the latest version of Jetty. You should then have a single .jar file.
 In eclipse:
 Window->Preferences->Java->Installed JREs-> Select jre and press edit-> Add External JARs-> "Your Jetty.jar location"
 
-[Jetty download] (http://repo1.maven.org/maven2/org/eclipse/jetty/aggregate/jetty-all/9.0.4.v20130625/jetty-all-9.0.4.v20130625.jar)
+[Jetty download] (https://mvnrepository.com/artifact/org.eclipse.jetty.aggregate/jetty-all)
 
 ## How to run server and User/Device
 
