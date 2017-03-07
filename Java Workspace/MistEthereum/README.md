@@ -1,3 +1,9 @@
+## Installing Jetty
+
+Download the latest version of Jetty. You should then have a single .jar file.
+In eclipse:
+Window->Preferences->Java->Installed JREs-> Select jre and press edit-> Add External JARs-> "Your Jetty.jar location"
+
 ## How to run server and User/Device
 
 * Start ServerMain and input a port number, then save the IP address.
