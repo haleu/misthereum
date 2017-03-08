@@ -14,7 +14,7 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<meta charset="UTF-8">
-		<script src="scripts.js"></script>
+		<script src="account.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <style>
     .policyedit label {
@@ -35,17 +35,7 @@
 			<div class="collapse navbar-collapse" id="devices-navbar">
 				<ul class="nav navbar-nav">
 					<li class="button">
-						<a href="account.html" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select Device <span class="caret"></span></a>
-						<ul id="selectdevice" class="dropdown-menu"></ul>
-					</li>
-					<li class="dropdown">
-						<input type="text" placeholder="Name" class="form-control" style="height:auto;margin-top:8px" id="device-name-input">
-					</li>
-					<li class="dropdown">
-						<button class="btn btn-default" role="button" style="height:auto;margin-top:8px" id="addDevice-btn">Add Device</button>
+						<a href="gg.html" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Back</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -60,12 +50,56 @@
 		</div>
     </div>
 </nav>
+		<script>
+		function registerAccount(accName, accPassword) {
+	
+			$.post(
+				'Register.php',
+				{
+					accName : accName,
+					accPassword : accPassword
+				},
+				function(returnStr){
+					document.getElementById("resultText").innerHTML = returnStr;
+				});
+		}
+
+		function getKey(accName, accPassword) {
+	
+			$.post(
+				'GetKey.php',
+				{
+					accName : accName,
+					accPassword : accPassword
+				},
+				function(key){
+					// Do things with the key here
+					document.getElementById("linkKey").value = key;
+				});
+		}
+		</script>
 		<div class="content">
       			<div id="message" style="display:none; float:right">
 				This Browser does not support Ethereum apps.
       			</div>
 			<div class="col-lg-4">
-				<div id=devicelist>
+			<div class="input-group">
+				<form>
+					Name: <input type="text" class="form-control" name="accNameInput" value=""><br>
+					Password: <input type="text" class="form-control"  name="accPassInput" value=""><br>
+					<input type="button" value="Register Account" onClick="registerAccount(accNameInput.value, accPassInput.value)">
+					<input type="button" value="Get Key" onClick="getKey(accNameInput.value, accPassInput.value)">
+				</form>
+			</div>
+			</div>
+			<div class="col-lg-4">
+			<div class="input-group">
+				<input id="linkKey" type="text" class="form-control" placeholder="key">
+				<input id="linkBtn" type="button" value="Link Account">
+			</div>
+			</div>
+			<div class="col-lg-4">
+				<div id="resultText">
 				</div>
 			</div>
 		</div>

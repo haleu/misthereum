@@ -23,17 +23,11 @@ function init(){
 
 		//UI init
 		document.getElementById("status").innerHTML = "contract loaded";
-		document.getElementById("checkPolicy-btn").addEventListener("click", outputPolicyCheck);
 		document.getElementById("addDevice-btn").addEventListener("click", function() {
 			var name = document.getElementById("device-name-input").value;
 			addDevice(name);
 		});
-		document.getElementById("linkBtn").addEventListener("click", function() {
-			var key = document.getElementById("linkKey").value;
-			linkAccount(key);
-		});
 		outputDeviceList();
-		document.getElementById("account").innerHTML = web3.eth.accounts[0];
 	}
 
 	function addDevice(name){
@@ -88,6 +82,7 @@ function init(){
 					document.getElementById("status").innerHTML = "failed";
 				}
 				document.getElementById("mining-status").innerHTML = "mining complete";
+				outputDeviceList();
 				policyEvent.stopWatching();
 			}
 		})
@@ -124,6 +119,7 @@ function init(){
 					document.getElementById("status").innerHTML = "failed";
 				}
 				document.getElementById("mining-status").innerHTML = "mining complete";
+				outputDeviceList();
 				removeEvent.stopWatching();
 			}
 		})
@@ -148,25 +144,11 @@ function init(){
 		return deviceList;
 		
 	}
-	function linkAccount(key){
-		myDevices.LinkAccount(key, {from: web3.eth.accounts[0]});
-		document.getElementById("mining-status").innerHTML = "waiting for new block...";
-		var linkaccountEvent = myDevices.linkaccount();
-		linkaccountEvent.watch(function(err, result) {
-			if (err) {
-				console.log(err)
-				return;
-			}
-			else{
-				document.getElementById("mining-status").innerHTML = "mining complete";
-				linkaccountEvent.stopWatching();
-			}
-		})
-	}
 	function outputDeviceList(){
 		var deviceList = [];
 		var length = myDevices.GetDeviceListLength();
 		var output = "";
+		document.getElementById("selectdevice").innerHTML="";
 		if (length > 0){
 			deviceList = getDeviceList(web3.eth.accounts[0]);
 			for (var i=0; i<deviceList.length; i++){
@@ -180,6 +162,7 @@ function init(){
 
 				var policyAdd = document.createElement("div");
 				policyAdd.className = "input-group";
+				policyAdd.style = "width: 70%";
 
 				var inputPolicy = document.createElement("input");
 				inputPolicy.type = "text";
@@ -189,6 +172,23 @@ function init(){
 				
 				var inputSpan = document.createElement("span");
 				inputSpan.className = "input-group-btn";
+				inputSpan.style = "width:50px;font-size:12px";
+
+				var readBox = document.createElement("input");
+				readBox.type = "checkbox";
+				readBox.id = inputPolicy.id+"-readbox";
+						
+				var readP = document.createElement("label");
+				readP.innerHTML = "Read: ";
+                        	readP.appendChild(readBox);
+
+				var writeBox = document.createElement("input");
+				writeBox.type = "checkbox";
+				writeBox.id = inputPolicy.id+"-writebox";
+
+				var writeP = document.createElement("label");
+				writeP.innerHTML = "Write: ";
+                        	writeP.appendChild(writeBox);
 
 				var inputBtn = document.createElement("button");
 				inputBtn.className = "btn btn-default";
@@ -200,15 +200,25 @@ function init(){
 				newDevice.appendChild(policyAdd);
 				policyAdd.appendChild(inputPolicy);
 				policyAdd.appendChild(inputSpan);
+				inputSpan.appendChild(writeP);
+				inputSpan.appendChild(readP);
 				inputSpan.appendChild(inputBtn);
 
 				inputBtn.addEventListener("click", function(){
 					var id = this.getAttribute('data-id');
 					var inputbox = document.getElementById("inputPolicy"+id);
 					var address = inputbox.value;
+					var read = false;
+					var write = false;
+					if (document.getElementById("inputPolicy"+id+"-readbox").checked){
+						read = true;
+					}
+					if (document.getElementById("inputPolicy"+id+"-writebox").checked){
+						write = true;
+					}
 					console.log(address);
 					console.log(id);
-					setPolicy(address, id, false, false);
+					setPolicy(address, id, read, write);
 				});
 				
 				
